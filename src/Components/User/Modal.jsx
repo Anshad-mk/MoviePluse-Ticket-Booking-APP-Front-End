@@ -4,10 +4,14 @@ import jwt_decode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "../../assets/axiosForBackend";
+import Avatar from "@mui/material/Avatar";
+import { deepOrange, deepPurple } from "@mui/material/colors";
+// import Stack from '@mui/material/Stack';
 
 const LoginPage = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [avatar, setAvatar] = useState(null);
   const [formData, setFormData] = useState({
     email: "",
     phone: "",
@@ -61,20 +65,64 @@ const LoginPage = (props) => {
             headers: { "Content-Type": "application/json" },
           }
         )
-        .then((res) => {
-          console.log(res);
+        .then((response) => {
+          if (response.data.token) {
+            setIsOpen(false);
+            localStorage.setItem("token", response.data.token);
+          }
+        })
+        .catch((err) => {
+          localStorage.removeItem("token");
+          console.log(err.response.data.error);
         });
     } catch (error) {}
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwt_decode(token);
+      setAvatar(decoded.email.charAt(0));
+    }
   };
-
+  useEffect(() => {
+      const Gtoken = localStorage.getItem("Gtoken");
+      
+      //  if(Gtoken){
+          //     let Googledecoded = jwt_decode(Gtoken);
+          //     console.log(Googledecoded);
+          
+          //     setAvatar({Plink:Googledecoded.picture})
+          // } else
+          
+          const token = localStorage.getItem("token");
+    if (token) {
+      const decoded = jwt_decode(token);
+      setAvatar(decoded.email.charAt(0));
+    }
+  }, [localStorage]);
   return (
     <>
-      <button
-        className="px-6 py-3 text-white bg-red-600 rounded-md"
-        type="button"
-        onClick={() => setIsOpen(true)}>
-        Login
-      </button>
+      {!avatar ? (
+        <button
+          className="px-6 py-3 text-white bg-red-600 rounded-md"
+          type="button"
+          onClick={() => setIsOpen(true)}>
+          Login
+        </button>
+      ) : (
+        <div className="flex flex-col justify-center">
+          <Avatar alt="Remy Sharp" src="" sx={{ bgcolor: deepPurple[500] }}>
+            {" "}
+            {avatar}{" "}
+          </Avatar>
+          <button
+            onClick={() => {
+              localStorage.removeItem("token");
+              setAvatar(null)
+            }}
+            className="px-2 text-white bg-red-600 rounded-md">
+            logOut
+          </button>
+        </div>
+      )}
 
       <Transition appear show={isOpen} as={React.Fragment}>
         <Dialog
@@ -112,6 +160,7 @@ const LoginPage = (props) => {
               leaveTo="opacity-0 scale-95">
               <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 {showRegister ? (
+                  // sign Up ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
                   <form
                     onSubmit={(e) => {
                       e.preventDefault();
@@ -176,6 +225,7 @@ const LoginPage = (props) => {
                     </p>
                   </form>
                 ) : (
+                  //sign UP :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
                   // loging.....................................
                   <form
                     onSubmit={(e) => {
@@ -211,7 +261,6 @@ const LoginPage = (props) => {
                       className="w-full px-4 py-2 text-lg font-bold text-white bg-red-500 rounded-lg hover:bg-red-700 focus:outline-none focus:bg-red-700"
                       type="submit"
                       onClick={(e) => {
-                        setIsOpen(false);
                         LoginHandle();
                       }}>
                       Login
@@ -219,28 +268,30 @@ const LoginPage = (props) => {
                     <h2 className="text-2xl font-bold mb-4 text-center mt-2">
                       OR
                     </h2>
-                    <GoogleLogin
-                      onSuccess={(credentialResponse) => {
-                        console.log(credentialResponse);
-                        var decoded = jwt_decode(credentialResponse.credential);
-                        if (decoded) {
-                          setShowModal(false);
-                          setLogname(decoded.given_name);
-                        }
+                    <div className="flex justify-center">
+                      <GoogleLogin
+                        onSuccess={(credentialResponse) => {
+                          localStorage.setItem(
+                            "Gtoken",
+                            credentialResponse.credential
+                          );
 
-                        // var decodedHeader = jwt_decode(credentialResponse.credential, { header: true });
-                        // console.log(decodedHeader)
-                      }}
-                      onError={() => {
-                        console.log("Login Failed");
-                      }}
-                    />
+                          // setShowModal(false);
 
-                    <button
+                          // var decodedHeader = jwt_decode(credentialResponse.credential, { header: true });
+                          // console.log(decodedHeader)
+                        }}
+                        onError={() => {
+                          console.log("Login Failed");
+                        }}
+                      />
+                    </div>
+
+                    {/* <button
                       className="w-full px-4 py-2 text-lg font-bold text-black  rounded-lg focus:outline-none focus:bg-red-700 mt-4"
                       type="submit">
                       Login With OTP
-                    </button>
+                    </button> */}
                     <p className="mt-4 text-gray-600 text-center">
                       Don't have an account yet?{" "}
                       <button
