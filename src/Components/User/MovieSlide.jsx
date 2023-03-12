@@ -4,15 +4,16 @@ import axios from '../../assets/axios'
 
 const MovieSlide = (props) => {
     const [movies, setMovies] = useState([{}])
-    useEffect(() => {
-        axios.get(`${props.links}`).then((resp) => {
-        setMovies(resp.data.results)
-         })
+    // useEffect(() => {
+    //     axios.get(`${props.links}`).then((resp) => {
+    //     setMovies(resp.data.results)
+        
+    //      })
 
-        //  axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=63d8f97a44d893a550ab1bf23ce2fa64').then((gen)=>{
-        //     console.log(gen.data.name)
-        //  })
-    }, [])
+    //     //  axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=63d8f97a44d893a550ab1bf23ce2fa64').then((gen)=>{
+    //     //     console.log(gen.data.name)
+    //     //  })
+    // }, [])
 
     // console.log(props)
     return (

@@ -5,12 +5,10 @@ const LoginPage = () => {
     <div>
 <h3>Admin Login</h3>
 <input type="email" />
-<input type="password" />
+<input type="text" />
       
     </div>
   )
 }
 
 export default LoginPage
-
-
