@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import {Link} from "react-router-dom"
 import axios from "../../assets/axiosForBackend";
+import { useNavigate } from 'react-router-dom';
+
 
 const LoginPage = () => {
+const [token,setTocken]=useState(null)
+  const navigateTo = useNavigate();
 const [logData,setLogData] =useState({
   email:'',
   password:'',
@@ -15,7 +19,11 @@ const loginHandle=(event)=>{
 
 const logApiCall=() =>{
 axios.post('/admin/login',{...logData}).then((res)=>{
-  console.log(res);
+  setTocken(res.data.token)
+  localStorage.setItem("Admintoken", res.data.token);
+  if(token){
+   navigateTo('/adminPannel')
+  }
 }).catch((err)=>{
   console.log(err)
 })

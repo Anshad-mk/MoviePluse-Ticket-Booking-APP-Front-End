@@ -77,6 +77,7 @@ const LoginPage = (props) => {
         });
     } catch (error) {}
     const token = localStorage.getItem("token");
+    
     if (token) {
       const decoded = jwt_decode(token);
       setAvatar(decoded.email.charAt(0));
