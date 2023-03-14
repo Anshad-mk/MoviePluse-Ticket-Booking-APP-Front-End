@@ -12,7 +12,7 @@ const MovieSlide = (props) => {
          })
 
          axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=63d8f97a44d893a550ab1bf23ce2fa64').then((gen)=>{
-            console.log(gen.data.name)
+            // console.log(gen.data.name)
          })
     }, [])
 
@@ -29,11 +29,13 @@ const MovieSlide = (props) => {
 
 
                     }}>
-                        <Link to={"/movie"}><img
+                        <Link to={`/movie/${movie.id}`}><img
+
                             className='max-w-lg self-center rounded-lg h-[286px]'
                             src={"https://image.tmdb.org/t/p/original/" + movie?.poster_path}
                             alt='poster'
                         />
+                        {/* {console.log(movie)} */}
                         <h3 className='my-1'>{movie?.title}</h3>
                         <h3 className='my-1'>⭐{movie?.vote_average}/10</h3>
                         </Link>

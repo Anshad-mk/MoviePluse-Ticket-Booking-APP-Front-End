@@ -12,6 +12,7 @@ const LoginPage = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [avatar, setAvatar] = useState(null);
+  const [Gavatar, setGAvatar] = useState(null);
   const [formData, setFormData] = useState({
     email: "",
     phone: "",
@@ -86,21 +87,32 @@ const LoginPage = (props) => {
   useEffect(() => {
       const Gtoken = localStorage.getItem("Gtoken");
       
-      //  if(Gtoken){
-          //     let Googledecoded = jwt_decode(Gtoken);
-          //     console.log(Googledecoded);
-          
-          //     setAvatar({Plink:Googledecoded.picture})
-          // } else
+       if(Gtoken){
+              let Googledecoded = jwt_decode(Gtoken);
+              console.log(Googledecoded);
+          if(!avatar){
+
+            setGAvatar(Googledecoded.picture)
+          }
+          }
           
           const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwt_decode(token);
       setAvatar(decoded.email.charAt(0));
     }
-  }, [localStorage]);
+  }, [localStorage,Gavatar]);
   return (
     <>
+    {Gavatar && (<div className="flex flex-col justify-center"><Avatar alt="Remy Sharp" src={Gavatar} sx={{ bgcolor: deepPurple[500] }}>
+            </Avatar>  <button
+            onClick={() => {
+              localStorage.removeItem("Gtoken");
+              setGAvatar(null)
+            }}
+            className="px-2 text-white bg-red-600 rounded-md">
+            logOut
+          </button> </div>)  }
       {!avatar ? (
         <button
           className="px-6 py-3 text-white bg-red-600 rounded-md"
@@ -110,10 +122,11 @@ const LoginPage = (props) => {
         </button>
       ) : (
         <div className="flex flex-col justify-center">
-          <Avatar alt="Remy Sharp" src="" sx={{ bgcolor: deepPurple[500] }}>
-            {" "}
-            {avatar}{" "}
-          </Avatar>
+         {avatar && <Avatar alt="Remy Sharp" src="" sx={{ bgcolor: deepPurple[500] }}> {avatar} </Avatar>}
+         
+            {Gavatar ? <Avatar alt="Remy Sharp" src={Gavatar} sx={{ bgcolor: deepPurple[500] }}>
+            </Avatar> : " "}
+          
           <button
             onClick={() => {
               localStorage.removeItem("token");
@@ -275,7 +288,11 @@ const LoginPage = (props) => {
                           localStorage.setItem(
                             "Gtoken",
                             credentialResponse.credential
-                          );
+                            );
+                            setGAvatar(Googledecoded.picture)
+
+                          let Googledecoded = jwt_decode(Gtoken);
+          
 
                           // setShowModal(false);
 

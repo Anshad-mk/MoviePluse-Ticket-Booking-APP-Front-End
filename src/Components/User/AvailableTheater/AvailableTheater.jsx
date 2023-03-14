@@ -3,7 +3,7 @@ import './availabletheater.css'
 import { Link } from 'react-router-dom'
 const AvailableTheater = () => {
     return (
-        <div className='Main-Container'>
+        <div className='Main-Container w-f m-0 p-3'>
             <div className='active-fill'>
                  <p className='status-indicaters'>Available</p>
                 <p className='status-indicaters'>Fast Filling</p>
@@ -11,16 +11,16 @@ const AvailableTheater = () => {
                 
             </div>
             <hr className='pt-3 ' />
-            <div className="Theater-container">
+            <div className="Theater-container ">
                 
-                <div className="theater-Name-container">
+                <div className="theater-Name-container ">
                     <h5 className='pe-3 m-0' >Theater Name</h5>
                     <p className=' m-0'>INFO</p>
                 </div>
                 <div className="Time-button">
-                    <Link to={'/movieseat'} className='text-decoration-none'><button className='btn btn-outline-dark  me-4'>03:45</button></Link> 
-                    <Link to={'/movieseat'} className='text-decoration-none'><button className='btn btn-outline-dark  me-4'>03:45</button></Link> 
-                    <Link to={'/movieseat'} className='text-decoration-none'><button className='btn btn-outline-dark  me-4'>03:45</button></Link> 
+                    <Link to={'/movieseat'} className='text-decoration-none'><button className='btn bg-black text-white rounded-lg px-4 mx-1'>03:45</button></Link> 
+                    <Link to={'/movieseat'} className='text-decoration-none'><button className='btn bg-black text-white rounded-lg px-4 mx-1'>03:45</button></Link> 
+                    <Link to={'/movieseat'} className='text-decoration-none'><button className='btn bg-black text-white rounded-lg px-4 mx-1'>03:45</button></Link> 
                     
                 </div>
             </div>
@@ -32,9 +32,9 @@ const AvailableTheater = () => {
                     <p className=' m-0'>INFO</p>
                 </div>
                 <div className="Time-button">
-                <Link to={'/movieseat'} className='text-decoration-none'><button className=' bg-black-[900] text-white rounded-lg px-2 mx-4'>03:45</button></Link> 
-                    <Link to={'/movieseat'} className='text-decoration-none'><button className='btn btn-outline-dark  me-4'>03:45</button></Link> 
-                    <Link to={'/movieseat'} className='text-decoration-none'><button className='btn btn-outline-dark  me-4'>03:45</button></Link> 
+                <Link to={'/movieseat'} className='text-decoration-none'><button className='btn bg-black text-white rounded-lg px-4 mx-1'>03:45</button></Link> 
+                    <Link to={'/movieseat'} className='text-decoration-none'><button className='btn bg-black text-white rounded-lg px-4 mx-1'>03:45</button></Link> 
+                    <Link to={'/movieseat'} className='text-decoration-none'><button className='btn bg-black text-white rounded-lg px-4 mx-1'>03:45</button></Link> 
                     
                 </div>
             </div>

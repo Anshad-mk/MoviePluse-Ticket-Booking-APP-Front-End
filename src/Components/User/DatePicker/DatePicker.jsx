@@ -11,7 +11,8 @@ export default function ScrollableTabsButtonAuto() {
   };
 
   return (
-    <Box sx={{ maxWidth: { xs: 320, sm: 480 },  }}>
+   <div className='bg-[#ffeded]'>
+     <Box sx={{ maxWidth: { xs: 320, sm: 480 }  }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -24,5 +25,6 @@ export default function ScrollableTabsButtonAuto() {
         
       </Tabs>
     </Box>
+   </div>
   );
 }

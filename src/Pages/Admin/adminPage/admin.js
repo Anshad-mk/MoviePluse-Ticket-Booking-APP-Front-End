@@ -1,5 +1,5 @@
 import React from 'react'
-import MacBookPro144 from '../../Components/Admin/adminPannel'
+import MacBookPro144 from '../../../Components/Admin/'
 
 function admin() {
   return (

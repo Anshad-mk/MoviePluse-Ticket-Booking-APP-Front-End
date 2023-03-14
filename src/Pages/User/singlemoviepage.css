@@ -30,7 +30,7 @@ body {
     border-color: black;
 }
 .img{
-    background: url('../../../assets/wall\ image.png');
+    /* background: url('../../../assets/wall\ image.png'); */
     background-size: 160%;
     background-position-x: center;
     height: 100%;
