@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
 import Modal from './Modal'
-import { Link } from 'react-router-dom'
+import { Link,Outlet } from 'react-router-dom'
 
 
 const NavBar = () => {
@@ -11,7 +11,7 @@ const NavBar = () => {
     }
 
     return (
-            <>
+            <div className="bg-[#111827]">
         <div className='bg-black text-white flex justify-between items-center h-20 max-w-[1240] mx-auto px-4 '>
             <Link to={'/'}> <h1 className='w-full text-3xl font-bold text-[#00df9a]'>MOVIE<sup className='text-red-700'>+</sup></h1></Link>
 
@@ -44,7 +44,10 @@ const NavBar = () => {
 
         </div>
         <hr className='' />
-        </>
+        <div>
+            <Outlet />
+        </div>
+        </div>
     )
 }
 

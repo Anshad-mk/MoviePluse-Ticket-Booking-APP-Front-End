@@ -7,7 +7,7 @@ import AvailableTheater from '../../../Components/User/AvailableTheater/Availabl
 function BookingPage() {
   return (
     <div>
-        <NavBar/>
+       
         <Moviename/>
         <TabPanel />
         <AvailableTheater/>

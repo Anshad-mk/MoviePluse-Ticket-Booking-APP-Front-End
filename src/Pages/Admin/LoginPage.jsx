@@ -19,6 +19,7 @@ const loginHandle=(event)=>{
 
 const logApiCall=() =>{
 axios.post('/admin/login',{...logData}).then((res)=>{
+  navigateTo('/adminPannel')
   setTocken(res.data.token)
   localStorage.setItem("Admintoken", res.data.token);
   if(token){

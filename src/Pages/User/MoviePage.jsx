@@ -59,7 +59,7 @@ const [movie,SetMovie]=useState('')
 
   return (
     <>
-      <NavBar />
+     
       <Box sx={{ flexGrow: 1 }} >
 
         <Grid container spacing={0}>

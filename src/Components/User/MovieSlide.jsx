@@ -12,11 +12,11 @@ const MovieSlide = (props) => {
          })
 
          axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=63d8f97a44d893a550ab1bf23ce2fa64').then((gen)=>{
-            // console.log(gen.data.name)
+            // console.log(gen.data)
          })
     }, [])
 
-    // console.log(props)
+    //  console.log(movies)
     return (
 
         <div className='flex px-2 overflow-x-scroll overflow-y-hidden scroll-smooth scroll-m-0 scrollbar-hide'>

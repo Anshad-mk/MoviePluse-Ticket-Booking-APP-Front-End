@@ -122,7 +122,7 @@ const LoginPage = (props) => {
         </button>
       ) : (
         <div className="flex flex-col justify-center">
-         {avatar && <Avatar alt="Remy Sharp" src="" sx={{ bgcolor: deepPurple[500] }}> {avatar} </Avatar>}
+         {avatar && <Avatar alt="Remy Sharp" src=""  sx={{ bgcolor: deepPurple[500],marginLeft:"10px"  }}> {avatar} </Avatar>}
          
             {Gavatar ? <Avatar alt="Remy Sharp" src={Gavatar} sx={{ bgcolor: deepPurple[500] }}>
             </Avatar> : " "}
@@ -132,7 +132,7 @@ const LoginPage = (props) => {
               localStorage.removeItem("token");
               setAvatar(null)
             }}
-            className="px-2 text-white bg-red-600 rounded-md">
+            className="px-2 text-white bg-red-600 rounded-bl-full rounded-br-full ">
             logOut
           </button>
         </div>

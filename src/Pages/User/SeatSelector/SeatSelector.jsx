@@ -6,7 +6,6 @@ import Seatselect from '../../../Components/User/SeatSelect/Seatselect'
 function SeatSelector() {
   return (
     <div>
-      <NavBar/>
       <Moviename/>
       <Seatselect/>
     </div>
