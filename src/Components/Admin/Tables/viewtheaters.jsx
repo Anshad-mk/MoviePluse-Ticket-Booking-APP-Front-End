@@ -4,20 +4,28 @@ import { useState } from 'react'
 import axios from 'axios'
 
 const viewtheaters = () => {
-  const [theater, setTheater] = useState([])
+  const [Theaters, setTheater] = useState([])
+  const [accept,setAccept]=useState(false)
 
   useEffect(() => {
     axios.get('http://localhost:4000/admin/TheaterReview')
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data,"data")
         setTheater(response.data)
+        // setAccept()
       })
       
   }, [])
 
-  function authorisetheater(theater,status) {
+    function authorisetheater (theater,status,index) {
     axios.patch('http://localhost:4000/admin/accept',{...theater,status}).then((resposne) => {
-      
+      const updatedTheaters = Theaters.map((value) => {
+        if (value.email === theater.email) {
+          return { ...value, accepted: status };
+        }
+        return value;
+      });
+      setTheater(updatedTheaters)
       
     });
   }
@@ -41,7 +49,7 @@ const viewtheaters = () => {
               </tr>
             </thead>
             <tbody>
-              {theater.map((theater, index) => (
+              {Theaters.map((theater, index) => (
                 <tr key={index} className="bg-white border-b">
                   <th
                     scope="row"
@@ -56,16 +64,24 @@ const viewtheaters = () => {
                     {theater.accepted ? (<button 
                       type="button"
                       className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800  disabled:opacity-25" disabled
-                      onClick={() => authorisetheater(theater)}
                        > ACCEPT </button>) :(<button 
                         type="button"
                         className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800  " 
-                        onClick={() => authorisetheater(theater,true)}
+                        onClick={() =>{
+                           authorisetheater(theater,true,index)
+                         
+                          }
+                          
+                        }
                          >ACCEPT </button>)}
                       
                     {theater.accepted ? (<button
                       type="button"
-                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" onClick={() => authorisetheater(theater,false)}
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" 
+                       onClick={() => {
+                        authorisetheater(theater,false,index)
+                       
+                      }}
                       >
                       REJECT
                     </button>):<button

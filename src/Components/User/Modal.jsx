@@ -4,15 +4,17 @@ import jwt_decode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "../../assets/axiosForBackend";
+import axiosClint from "axios";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange, deepPurple } from "@mui/material/colors";
-// import Stack from '@mui/material/Stack';
+
 
 const LoginPage = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [avatar, setAvatar] = useState(null);
   const [Gavatar, setGAvatar] = useState(null);
+  const [Eror, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     phone: "",
@@ -44,7 +46,7 @@ const LoginPage = (props) => {
         .then((res) => {
           console.log(res);
         });
-    } catch (error) {}
+    } catch (error) { }
   };
   //login
 
@@ -52,7 +54,7 @@ const LoginPage = (props) => {
     try {
       const { id, value } = event.target;
       setLoginData({ ...loginData, [id]: value });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const LoginHandle = async () => {
@@ -74,65 +76,97 @@ const LoginPage = (props) => {
         })
         .catch((err) => {
           localStorage.removeItem("token");
-          console.log(err.response.data.error);
+          if (err.response.data.error) {
+            setError(err.response.data.error);
+            setTimeout(() => {
+              setError("");
+            }, 3500);
+          }
+
+          console.log(err.response.data.error, "errrrrrrr");
         });
-    } catch (error) {}
+    } catch (error) { }
     const token = localStorage.getItem("token");
-    
     if (token) {
       const decoded = jwt_decode(token);
       setAvatar(decoded.email.charAt(0));
     }
   };
-  useEffect(() => {
-      const Gtoken = localStorage.getItem("Gtoken");
-      
-       if(Gtoken){
-              let Googledecoded = jwt_decode(Gtoken);
-              console.log(Googledecoded);
-          if(!avatar){
 
-            setGAvatar(Googledecoded.picture)
-          }
-          }
-          
-          const token = localStorage.getItem("token");
+  useEffect(() => {
+    const Gtoken = localStorage.getItem("Gtoken");
+    if (Gtoken) {
+      let Googledecoded = jwt_decode(Gtoken);
+      console.log(Googledecoded);
+      if (!avatar) {
+        setGAvatar(Googledecoded.picture);
+      }
+    }
+
+    const token = localStorage.getItem("token");
     if (token) {
       const decoded = jwt_decode(token);
       setAvatar(decoded.email.charAt(0));
     }
-  }, [localStorage,Gavatar]);
+  }, [localStorage, Gavatar]);
   return (
     <>
-    {Gavatar && (<div className="flex flex-col justify-center"><Avatar alt="Remy Sharp" src={Gavatar} sx={{ bgcolor: deepPurple[500] }}>
-            </Avatar>  <button
+      {Gavatar && (
+        <div className="flex flex-col justify-center">
+          <Avatar
+            alt="Remy Sharp"
+            src={Gavatar}
+            sx={{ bgcolor: deepPurple[500] }}
+          ></Avatar>{" "}
+          <button
             onClick={() => {
               localStorage.removeItem("Gtoken");
-              setGAvatar(null)
+              setGAvatar(null);
             }}
-            className="px-2 text-white bg-red-600 rounded-md">
+            className="px-2 text-white bg-red-600 rounded-md"
+          >
             logOut
-          </button> </div>)  }
+          </button>{" "}
+        </div>
+      )}
       {!avatar ? (
         <button
           className="px-6 py-3 text-white bg-red-600 rounded-md"
           type="button"
-          onClick={() => setIsOpen(true)}>
+          onClick={() => setIsOpen(true)}
+        >
           Login
         </button>
       ) : (
         <div className="flex flex-col justify-center">
-         {avatar && <Avatar alt="Remy Sharp" src=""  sx={{ bgcolor: deepPurple[500],marginLeft:"10px"  }}> {avatar} </Avatar>}
-         
-            {Gavatar ? <Avatar alt="Remy Sharp" src={Gavatar} sx={{ bgcolor: deepPurple[500] }}>
-            </Avatar> : " "}
-          
+          {avatar && (
+            <Avatar
+              alt="Remy Sharp"
+              src=""
+              sx={{ bgcolor: deepPurple[500], marginLeft: "10px" }}
+            >
+              {" "}
+              {avatar}{" "}
+            </Avatar>
+          )}
+
+          {Gavatar ? (
+            <Avatar
+              alt="Remy Sharp"
+              src={Gavatar}
+              sx={{ bgcolor: deepPurple[500] }}
+            ></Avatar>
+          ) : (
+            " "
+          )}
+
           <button
             onClick={() => {
               localStorage.removeItem("token");
-              setAvatar(null)
+              setAvatar(null);
             }}
-            className="px-2 text-white bg-red-600 rounded-bl-full rounded-br-full ">
+            className="px-2 text-white bg-red-600 rounded-bl-full rounded-br-full"
+          >
             logOut
           </button>
         </div>
@@ -145,7 +179,8 @@ const LoginPage = (props) => {
           onClose={() => {
             setIsOpen(false);
             setShowRegister(false);
-          }}>
+          }}
+        >
           <div className="min-h-screen px-4 text-center">
             <Transition.Child
               as={React.Fragment}
@@ -154,13 +189,15 @@ const LoginPage = (props) => {
               enterTo="opacity-100"
               leave="ease-in duration-200"
               leaveFrom="opacity-100"
-              leaveTo="opacity-0">
+              leaveTo="opacity-0"
+            >
               <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
             </Transition.Child>
 
             <span
               className="inline-block h-screen align-middle"
-              aria-hidden="true">
+              aria-hidden="true"
+            >
               &#8203;
             </span>
 
@@ -171,14 +208,16 @@ const LoginPage = (props) => {
               enterTo="opacity-100 scale-100"
               leave="ease-in duration-200"
               leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95">
+              leaveTo="opacity-0 scale-95"
+            >
               <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                 {showRegister ? (
-                  // sign Up ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                  // sign Up ::::::::::::::::::::::::::::::::::::::::::::::
                   <form
                     onSubmit={(e) => {
                       e.preventDefault();
-                    }}>
+                    }}
+                  >
                     <h2 className="text-2xl font-bold mb-4 text-center">
                       Welcome New!
                     </h2>
@@ -224,7 +263,8 @@ const LoginPage = (props) => {
                       onClick={(e) => {
                         setShowRegister(false);
                         handlesubmit();
-                      }}>
+                      }}
+                    >
                       Register
                     </button>
                     <p className="mt-4 text-gray-600 text-center">
@@ -233,7 +273,8 @@ const LoginPage = (props) => {
                         className="text-red-500 hover:text-red-700 font-bold focus:outline-none"
                         onClick={() => {
                           setShowRegister(false);
-                        }}>
+                        }}
+                      >
                         Login here.
                       </button>
                     </p>
@@ -244,7 +285,8 @@ const LoginPage = (props) => {
                   <form
                     onSubmit={(e) => {
                       e.preventDefault();
-                    }}>
+                    }}
+                  >
                     <h2 className="text-2xl font-bold mb-4 text-center">
                       Welcome Back!
                     </h2>
@@ -276,9 +318,11 @@ const LoginPage = (props) => {
                       type="submit"
                       onClick={(e) => {
                         LoginHandle();
-                      }}>
+                      }}
+                    >
                       Login
                     </button>
+                    <span className="text-[#c40b0b]">{Eror}</span>
                     <h2 className="text-2xl font-bold mb-4 text-center mt-2">
                       OR
                     </h2>
@@ -288,14 +332,24 @@ const LoginPage = (props) => {
                           localStorage.setItem(
                             "Gtoken",
                             credentialResponse.credential
-                            );
-                            setGAvatar(Googledecoded.picture)
+                          );
+                          setGAvatar(Googledecoded.picture);
 
                           let Googledecoded = jwt_decode(Gtoken);
-          
+                          console.log(Googledecoded);
+
+                          // axiosClint.post("http://localhost:4000/emailauth", {
+
+                          //       "name":"krishnapriya",
+                          //       "mail":"Kri@gmail.com"
+
+                          //   })
+                          //   .then((resp) => {
+                          //   })
+                          //   .catch((er) => {
+                          //   });
 
                           // setShowModal(false);
-
                           // var decodedHeader = jwt_decode(credentialResponse.credential, { header: true });
                           // console.log(decodedHeader)
                         }}
@@ -310,11 +364,13 @@ const LoginPage = (props) => {
                       type="submit">
                       Login With OTP
                     </button> */}
+
                     <p className="mt-4 text-gray-600 text-center">
                       Don't have an account yet?{" "}
                       <button
                         className="text-red-500 hover:text-red-700 font-bold focus:outline-none"
-                        onClick={() => setShowRegister(true)}>
+                        onClick={() => setShowRegister(true)}
+                      >
                         Register here.
                       </button>
                     </p>

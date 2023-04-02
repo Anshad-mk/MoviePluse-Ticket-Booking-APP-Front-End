@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -39,96 +39,120 @@ const bull = (
 );
 
 export default function BasicGrid() {
-  
+  const [movie, SetMovie] = useState('')
+
   const { id } = useParams();
   useEffect(() => {
-    axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=63d8f97a44d893a550ab1bf23ce2fa64&language=en-US
-    `).then((resp) => {
-    // setMovies(resp.data.results)
-    SetMovie(resp.data)
-    console.log(resp.data)
-     })
+    axios.get(`http://localhost:4000/Movie/${id}`).then((resp) => {
+      SetMovie(resp.data)
+      console.log(resp.data)
+    })
+  }, [])
 
-    //  axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=63d8f97a44d893a550ab1bf23ce2fa64').then((gen)=>{
-    //     // console.log(gen.data.name)
-    //  })
-}, [])
-const [movie,SetMovie]=useState('')
-  
+  // const movieData = {
+  //   title: 'The Marvel Series',
+  //   releaseDate: '12/03/2001',
+  //   Director: 'Peter John',
+  //   genres: ['Action', 'Sci-Fi'],
+  // }
 
+  const castDetails = [
+    {
+      name: 'Ram K Das',
+      imgSrc:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGk0XDPwd63cdXVsxCfKxTn-gEos2wz-A0ocfU8OhTLltxMbuiTRxz35d0TqxUJ0XAFcPTekABTww&usqp=CAU&ec=48600113',
+      position: 'Director',
+    },
+    {
+      name: 'Ram K Das',
+      position: 'Director',
+    },
+    {
+      name: 'Ram K Das',
+      position: 'Director',
+    },
+    {
+      name: 'Ram K Das',
+      position: 'Director',
+    },
+    {
+      name: 'Ram K Das',
+      position: 'Director',
+    },
+    {
+      name: 'Ram K Das',
+      position: 'Director',
+    },
+  ]
 
   return (
     <>
-     
-      <Box sx={{ flexGrow: 1 }} >
+      <div className="mx-auto p-8 items-center justify-center">
+        <div className="bg-white p-8 rounded-lg mb-8 items-center justify-center">
+          <h1 className="text-3xl font-bold mb-6 text-center">
+            {movie.moviename}
+          </h1>
+          {/* <div className='text-center'></div> */}
+          <img
+            src="https://wallpaperaccess.com/full/13453.jpg"
+            alt=""
+            className="mx-auto block mb-8 rounded-lg  lg:max-w-screen-lg"
+          />
+          <p className="text-gray-600 mb-4 flex items-center text-center"> {movie.description}
 
-        <Grid container spacing={0}>
-
-          <Grid item xs={12}>
-
-            <Item className='containertop flex justify-center'>
-
-              <div className="container ">
-                <div className="card ">
-                  <div className="img-container ">
-                    
-                    <img className='img' src={"https://image.tmdb.org/t/p/original/" + movie?.backdrop_path} alt="Movie Poster" />
-                    
-                    </div>
-                    
-                    {/* className='flex flex-col justify-center ' */}
-                  <div className="content flex flex-col justify-center items-center">
-                  <CardActions className='bg-[#741a1a] hover:bg-[#da1f1f] rounded-lg mb-6'>
-                        <Link className='px-28 ' to={'/SelectTheater'}><Button size="small"> Book Now </Button></Link>
-                      </CardActions>
-                    <Card sx={{ minWidth: 275, backgroundColor: 'black' }} >
-                    
-                      <CardContent>
-                        <iframe width="850" height="415" src="https://www.youtube.com/embed/o5F8MOz_IDw" title="YouTube video player"
-
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                          allowfullscreen ></iframe>
-
-                        {/* <Typography sx={{ fontSize: 14,  }} color="text.secondary" gutterBottom>
-        Choose Number of Seats (9)
-        
-        </Typography> */}
-
-                        {/* <Box sx={{ width: 300 }} 
- marginLeft={35}
- 
-   >
-      <Slider  sx={{boxShadow:5 }} 
-        aria-label="Temperature"
-        defaultValue={1}
-        getAriaValueText={valuetext}
-        valueLabelDisplay="auto"
-        step={1}
-        marks
-        min={1}
-        max={9}
-      />
-    </Box> */}
-                        {/* <Box bgcolor='danger' sx={{  paddingLeft:50, height: 55, width: 60 ,borderRadius:5}} >
-    <IconButton aria-label="play/pause">
-            <PlayArrowIcon sx={{ height: 38, width: 38, color:'red' }}  />
-          </IconButton>
-    </Box> */}
-
-                      </CardContent>
-                      
-                    </Card>
-
-
-                  </div>
-                </div>
+          </p>
+          <div className="text-center">
+          <h1 className="font-bold text-2xl uppercase">Details</h1>
+          <div className="text-center">
+            <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
+              Language :{movie.language}
+            </h5>
+            <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
+              Genre :{movie.genre}
+            </h5>
+            <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
+              {/* Release Date :{movie.releasedate} */}
+            </h5>
+          </div>
+        </div>
+          <div className="flex mx-auto items-center justify-center gap-6">
+            <button
+              className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
+              type="button"
+            >
+              <Link to="/SelectTheater">Book</Link>
+            </button>
+            <button
+              className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
+              type="button"
+            >
+              Trailer
+            </button>
+          </div>
+        </div>
+        <div className="bg-white p-8 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold mb-4 text-center">Cast & Crew</h2>
+          <div className="grid grid-cols-6 gap-5 items-center justify-center">
+            {castDetails.map((cast) => (
+              <div key="" className="bg-gray-100 p-4 rounded-lg">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGk0XDPwd63cdXVsxCfKxTn-gEos2wz-A0ocfU8OhTLltxMbuiTRxz35d0TqxUJ0XAFcPTekABTww&usqp=CAU&ec=48600113"
+                  alt=""
+                  className="mb-4 rounded-full w-24 h-20 object-cover items-center justify-center mx-auto"
+                />
+                <h3 className="text-md font-bold mb-2 w-24 items-center justify-center mx-auto">
+                  {cast.name}
+                </h3>
+                <p className="text-gray-600 text-center mx-auto">
+                  {cast.position}
+                </p>
               </div>
-
-            </Item>
-          </Grid>
-
-        </Grid>
-      </Box>
+            ))}
+          </div>
+        </div>
+        <h2 className='mt-12 text-center font-bold text-xl'>UPCOMMING MOVIES</h2>
+        {/* <MovieSlide></MovieSlide> */}
+      </div>
     </>
   );
 }

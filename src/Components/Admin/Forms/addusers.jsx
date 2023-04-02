@@ -55,7 +55,7 @@ const addusers = () => {
         
         
         if (response.data.created == true) {
-          navigate('/adminPannel/view-users')
+          navigate('/adminPannel/view-theaters')
           console.log('Registeration Sucess')
         } else if (response.data.errors) {
           const { email, password } = response.data.errors

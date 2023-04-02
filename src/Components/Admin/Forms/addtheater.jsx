@@ -1,15 +1,19 @@
 import React from 'react'
 import { useFormik } from 'formik'
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
 
 const addtheater = () => {
 
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       theatername: '',
       place: '',
+      email:'',
       password: '',
       confirmPassword: '',
     },
@@ -20,6 +24,9 @@ const addtheater = () => {
       }
       if (!values.place) {
         errors.place = 'Place Required'
+      } 
+      if (!values.email) {
+        errors.email = 'Email Required'
       } 
 
       if (!values.password) {
@@ -35,12 +42,15 @@ const addtheater = () => {
       console.log(values, '----theater data')
       try {
         const response = await axios.post(
-          'http://localhost:4000/add-theaters',
+          'http://localhost:4000/admin/add-Theater',
           { ...values },
           { withCredentials: true },
         )
 
         if (response) {
+          console.log(response)
+          navigate('/adminPannel/view-theaters')
+          
         } else {
         }
       } catch (error) {
@@ -52,7 +62,7 @@ const addtheater = () => {
 
 
   return (
-   <div className="h-screen flex justify-center items-center">
+   <div className="flex justify-center items-center">
    <form class="w-full max-w-lg ml-4" onSubmit={formik.handleSubmit}>
      <h1 className="font-bold text-2xl items-center justify-center flex mb-11">
        ADD THEATERS 
@@ -63,7 +73,7 @@ const addtheater = () => {
            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
            for="grid-first-name"
          >
-           theaer Name
+           theater Name
          </label>
          <input
            {...formik.getFieldProps('theatername')}
@@ -99,6 +109,25 @@ const addtheater = () => {
        </div>
      </div>
      <div class="flex flex-wrap -mx-3 mb-6">
+     <div class="w-full px-3">
+         <label
+           class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+           for="grid-password"
+         >
+           Email
+         </label>
+         <input
+           {...formik.getFieldProps('email')}
+           class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+           id="grid-password"
+           type="email"
+           name="email"
+           placeholder="Email ID"
+         />
+       </div>
+       {formik.touched.email && formik.errors.email ? (
+           <div className="text-red-500">{formik.errors.email}</div>
+         ) : null}
        <div class="w-full px-3">
          <label
            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -112,7 +141,7 @@ const addtheater = () => {
            id="grid-password"
            type="password"
            name="password"
-           placeholder="Password............"
+           placeholder="Password"
          />
        </div>
        {formik.touched.password && formik.errors.password ? (

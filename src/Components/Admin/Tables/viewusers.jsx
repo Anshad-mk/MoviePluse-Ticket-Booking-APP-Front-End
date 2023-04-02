@@ -1,17 +1,42 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import Modal from '../../../Components/Admin/Modal'
+
+
 
 const viewusers = () => {
-  const [users,setUsers] = useState([])
 
-  useEffect(()=>{
-    
-axios.get('http://localhost:4000/admin/allusers').then((resp)=>{
-  console.log(resp.data)
-  setUsers(resp.data)
-})
+  const [users, setUsers] = useState([])
 
-  },[])
+
+  const blockUser = (userid, status) => {
+    axios.patch('http://localhost:4000/admin/blocked',
+      {
+        userid: userid,
+        status: status
+      })
+      .then((response) => {
+        const { data } = response;
+        console.log(data)
+
+      })
+
+  }
+  const handleClick = (index, value) => {
+    const updatedUsers = [...users];
+    updatedUsers[index].isBlocked = value;
+    setUsers(updatedUsers);
+  }
+
+  useEffect(() => {
+
+    axios.get('http://localhost:4000/admin/allusers').then((resp) => {
+      console.log(resp.data)
+      setUsers(resp.data)
+    })
+
+  }, [])
   return (
     <>
       <div className=" flex justify-center items-center">
@@ -34,39 +59,59 @@ axios.get('http://localhost:4000/admin/allusers').then((resp)=>{
               </tr>
             </thead>
             <tbody>
-            
+
               {users.map((user, index) => (
- <tr className="bg-white border-b" key={index}>
- <th
-   scope="row"
-   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
- >
-   {user.email}
- </th>
- <td className="px-6 py-4 text-black text-center font-medium">{user.phone}</td>
- <td className="px-6 py-4 items-center flex justify-center">
-   <button
-     type="button"
-     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-   >
-     Block
-   </button>
-   <button
-     type="button"
-     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-   >
-     Edit
-   </button>
-   <button
+
+                <tr className="bg-white border-b" key={index}>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black"
+                  >
+
+                    {user.email}
+                    
+                  </th>
+                  <td className="px-6 py-4 text-black text-center font-medium">{user.phone} </td>
+
+                  <td className="px-6 py-4 items-center flex justify-center">
+                    {user.isBlocked ? (<button
+                      type="button"
+                      className="text-white  bg-green-700 hover:bg-green-800 w-20 hover:ring-4 hover:ring-green-300 font-medium rounded-lg text-sm  py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      onClick={() => {
+                        blockUser(user._id, false)
+                        handleClick(index, false)
+
+                      }}>
+                      UnBlock
+                    </button>) : (<button
+                      type="button"
+                      className="text-white focus:ring-4  bg-red-700 hover:bg-red-800 w-20  hover:ring-red-300 font-medium rounded-lg text-sm  py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                      onClick={() => {
+                        blockUser(user._id, true)
+                        handleClick(index, true)
+                      }}>
+                      Block
+                    </button>)}
+                    <Modal user={user}/>
+
+                    {/* <button
+                      type="button"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                    >
+                      Edit
+                    </button> */}
+                    {/* <button
      type="button"
      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
    >
      Delete
-   </button>
- </td>
-</tr>
+   </button> */}
+                  </td>
+
+                </tr>
+
               ))}
-             
+
             </tbody>
           </table>
         </div>
@@ -76,3 +121,14 @@ axios.get('http://localhost:4000/admin/allusers').then((resp)=>{
 }
 
 export default viewusers
+
+  
+
+
+  //     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 round
+  //               ed py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+  //     id="grid-last-name"
+  //     type="text"
+  //     name="phone"
+  //     placeholder="Phone Number"
+  //   />

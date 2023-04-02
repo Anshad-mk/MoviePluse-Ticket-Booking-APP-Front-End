@@ -1,51 +1,65 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext  } from 'react'
 import { baseUrl, APIKey, imageUrl } from '../../assets/Constents'
 import axios from '../../assets/axios'
-import { Link ,Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import { FilterContext } from '../../Components/User/NavBar'
+
 
 const MovieSlide = (props) => {
+    const { filteredMovies } = useContext(FilterContext)
+   
     const [movies, setMovies] = useState([{}])
+    console.log(filteredMovies)
     useEffect(() => {
-        axios.get(`${props.links}`).then((resp) => {
-        setMovies(resp.data.results)
-        
-         })
+     setMovies(filteredMovies)
+    }, [filteredMovies])
 
-         axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=63d8f97a44d893a550ab1bf23ce2fa64').then((gen)=>{
-            // console.log(gen.data)
-         })
-    }, [])
+    // console.log(movies)
 
-    //  console.log(movies)
+    const [selectedOption, setSelectedOption] = useState("");
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value)
+    // console.log(selectedOption)
+  }
     return (
+<>
+<select id="options" value={selectedOption} onChange={handleOptionChange} >
+        <option value="">--Select--</option>
+        <option value="fantasy">fantasy</option>
+        <option value="Action">Action</option>
+        <option value="Sci-fi">Sci-fi</option>
+      </select>
 
         <div className='flex px-2 overflow-x-scroll overflow-y-hidden scroll-smooth scroll-m-0 scrollbar-hide'>
-            {movies.map((movie, index) => {
+            
+            {  movies.map((movie, index) => {
                 return (
-                    
-                    <div key={index} className='w-[21rem] max-w-[100%] bg-black/10 rounded-xl p-3 text-white m-5 flex flex-col duration-300 cursor-pointer text-xl hover:scale-110' onClick={()=>{
+
+                    <div key={index} className='w-[21rem] max-w-[100%] bg-black/10 rounded-xl p-3 text-white m-5 flex flex-col duration-300 cursor-pointer text-xl hover:scale-110' onClick={() => {
 
 
 
 
                     }}>
-                        <Link to={`/movie/${movie.id}`}><img
+                        <Link to={`/movie/${movie._id}`}><img
 
                             className='max-w-lg self-center rounded-lg h-[286px]'
-                            src={"https://image.tmdb.org/t/p/original/" + movie?.poster_path}
+                            src={"https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg"}
                             alt='poster'
                         />
-                        {/* {console.log(movie)} */}
-                        <h3 className='my-1'>{movie?.title}</h3>
-                        <h3 className='my-1'>⭐{movie?.vote_average}/10</h3>
+                            {/* {console.log(movie)} */}
+                            <h3 className='my-1'>{movie?.moviename}</h3>
+                            <h3 className='my-1'>⭐{movie?.genre}</h3>
+                            {/* <p className='truncate'>{movie.description}</p> */}
                         </Link>
                     </div>)
-                        
+
             })}
         </div>
 
 
-
+        </>
 
     )
 }
