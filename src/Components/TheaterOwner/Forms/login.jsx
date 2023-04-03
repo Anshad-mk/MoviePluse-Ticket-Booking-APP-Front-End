@@ -7,9 +7,13 @@ import { ToastContainer, toast } from 'react-toastify'
 const login = () => {
   const navigate = useNavigate()
   
+  useEffect(()=>{
+    const Cinematoken = localStorage.getItem("Cinematoken");
+    if(Cinematoken){
   
-  // console.log()
-
+      navigate('/CinemasPannel')
+    }
+  })
   const generateError = (error) =>
     toast.error(error, {
       position: 'bottom-right',
@@ -70,7 +74,7 @@ const login = () => {
       <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
         <div>
           <a href="/">
-            <h3 className="text-4xl font-bold">LOGIN</h3>
+            <h3 className="text-4xl font-bold"><span className='text-[#f119f1]'>Cinemas</span> LOGIN</h3>
           </a>
         </div>
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">

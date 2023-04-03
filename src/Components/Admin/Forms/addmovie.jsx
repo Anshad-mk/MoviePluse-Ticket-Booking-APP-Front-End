@@ -8,6 +8,7 @@ const addmovieform = () => {
   const [image1, setImage1] = useState(null)
   const [image2, setImage2] = useState(null)
   const [image3, setImage3] = useState(null)
+  
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
@@ -47,11 +48,11 @@ const addmovieform = () => {
         // Save image1 to image1 folder
         if (image1) {
           const uploadTask1 = storage
-            .ref(`image1/${image1?.name}`)
+            .ref(`poster/${image1?.name}`)
             .put(image1)
           await uploadTask1
           posterUrl1 = await storage
-            .ref('image1')
+            .ref('poster')
             .child(image1.name)
             .getDownloadURL()
           console.log(posterUrl1, 'Uploaded image1 URL')
@@ -62,11 +63,11 @@ const addmovieform = () => {
         // Save image2 to image2 folder
         if (image2) {
           const uploadTask2 = storage
-            .ref(`image2/${image2?.name}`)
+            .ref(`poster/${image2?.name}`)
             .put(image2)
           await uploadTask2
           posterUrl2 = await storage
-            .ref('image2')
+            .ref('poster')
             .child(image2.name)
             .getDownloadURL()
           console.log(posterUrl2, 'Uploaded image2 URL')
@@ -77,11 +78,11 @@ const addmovieform = () => {
         // Save image3 to image3 folder
         if (image3) {
           const uploadTask3 = storage
-            .ref(`image3/${image3?.name}`)
+            .ref(`poster/${image3?.name}`)
             .put(image3)
           await uploadTask3
           posterUrl3 = await storage
-            .ref('image3')
+            .ref('poster')
             .child(image3.name)
             .getDownloadURL()
           console.log(posterUrl3, 'Uploaded image3 URL')

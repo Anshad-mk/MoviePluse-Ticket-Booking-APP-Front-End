@@ -94,11 +94,11 @@ export default function BasicGrid() {
           </h1>
           {/* <div className='text-center'></div> */}
           <img
-            src="https://wallpaperaccess.com/full/13453.jpg"
+            src={movie.poster2}
             alt=""
-            className="mx-auto block mb-8 rounded-lg  lg:max-w-screen-lg"
+            className="mx-auto block mb-8 rounded-lg text-center  lg:max-w-screen-lg"
           />
-          <p className="text-gray-600 mb-4 flex items-center text-center"> {movie.description}
+          <p className="text-gray-600 mb-4 flex  items-center text-center"> {movie.description}
 
           </p>
           <div className="text-center">
@@ -116,12 +116,12 @@ export default function BasicGrid() {
           </div>
         </div>
           <div className="flex mx-auto items-center justify-center gap-6">
-            <button
+          <Link to="/SelectTheater"> <button
               className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
               type="button"
             >
-              <Link to="/SelectTheater">Book</Link>
-            </button>
+              Book
+            </button></Link>
             <button
               className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
               type="button"

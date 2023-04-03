@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom"
 import axios from "../../assets/axiosForBackend";
 import { useNavigate } from 'react-router-dom';
 
 
 const LoginPage = () => {
+const [errors,setErrors]=useState('')
 const [token,setTocken]=useState(null)
   const navigateTo = useNavigate();
 const [logData,setLogData] =useState({
   email:'',
   password:'',
+})
+useEffect(()=>{
+  const Admintoken = localStorage.getItem("Admintoken");
+  if(Admintoken){
+
+    navigateTo('/adminpannel')
+  }
 })
 
 const loginHandle=(event)=>{
@@ -26,19 +34,26 @@ axios.post('/admin/login',{...logData}).then((res)=>{
    navigateTo('/adminPannel')
   }
 }).catch((err)=>{
-  console.log(err)
+  
+  setErrors(err.response.data.error)
+  setTimeout(() => {
+      setErrors('')
+  }, 2000);
+
 })
 
 }
 
   return (
     <div className="flex justify-center  h-[40rem] ">
+      
       <div className="flex flex-col justify-center  w-full max-w-md px-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
       <form 
         onSubmit={(e) => {
           e.preventDefault();
         }}>
-        <h2 className="text-2xl font-bold mb-4 text-center">Welcome Admin</h2>
+        
+          <h2 className="text-2xl font-bold mb-4 text-center"><span className="text-[#09ff09]">Admin</span> Login</h2>
         <div className="mb-4">
           <input
             className="w-full px-3 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-red-500"
@@ -72,7 +87,7 @@ axios.post('/admin/login',{...logData}).then((res)=>{
           }}>
           Log in
         </button>
-        
+        <p className="text-[#f50e0e]">{errors}</p>
       </form>
       <p className="mt-4 text-gray-600 text-center">
           Public account?{" "}

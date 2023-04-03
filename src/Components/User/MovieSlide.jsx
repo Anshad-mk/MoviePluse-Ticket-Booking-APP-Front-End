@@ -45,7 +45,7 @@ const MovieSlide = (props) => {
                         <Link to={`/movie/${movie._id}`}><img
 
                             className='max-w-lg self-center rounded-lg h-[286px]'
-                            src={"https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_FMjpg_UX1000_.jpg"}
+                            src={movie.poster1}
                             alt='poster'
                         />
                             {/* {console.log(movie)} */}

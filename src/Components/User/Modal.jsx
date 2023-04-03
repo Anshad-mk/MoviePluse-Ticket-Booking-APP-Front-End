@@ -70,6 +70,7 @@ const LoginPage = (props) => {
         )
         .then((response) => {
           if (response.data.token) {
+            
             setIsOpen(false);
             localStorage.setItem("token", response.data.token);
           }
@@ -107,6 +108,7 @@ const LoginPage = (props) => {
     if (token) {
       const decoded = jwt_decode(token);
       setAvatar(decoded.email.charAt(0));
+      
     }
   }, [localStorage, Gavatar]);
   return (

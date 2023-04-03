@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const sidebar = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate()
   const [collapseShow, setCollapseShow] = useState('hidden')
   return (
     <>
@@ -55,8 +55,8 @@ const sidebar = () => {
               </div>
             </div>
             {/* Form */}
-            <form className="mt-6 mb-4 md:hidden">
-              <div className="mb-3 pt-0">
+            <form className="mt-4 mb-4 md:hidden">
+              <div className=" pt-0">
                 <input
                   type="text"
                   placeholder="Search"
@@ -66,9 +66,9 @@ const sidebar = () => {
             </form>
 
             {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
+            <hr className="my-3 md:min-w-full" />
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            <h6 className="md:min-w-full  bg-[#40e94033] rounded-2xl text-blueGray-900 text-xs uppercase font-bold block p-4 pb-4   no-underline">
               Screen MANGEMENT
             </h6>
             {/* Navigation */}
@@ -93,10 +93,10 @@ const sidebar = () => {
             </ul>
 
             {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
+            <hr className="my-2 bg-red-900 md:min-w-full" />
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              MOVIE MANGEMENT
+            <h6 className="md:min-w-full  bg-[#40e94033] rounded-2xl text-blueGray-900 text-xs uppercase font-bold block p-4 pb-4   no-underline">
+              Show MANGEMENT
             </h6>
             {/* Navigation */}
 
@@ -104,29 +104,29 @@ const sidebar = () => {
               <li className="items-center">
                 <Link
                   className="duration-300 hover:bg-[#aaa6a6] hover:text-white hover:rounded-lg hover:px-3 text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/add-movies"
+                  to="/CinemasPannel/add-Show"
                 >
                   <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{' '}
-                  ADD MOVIES
+                  ADD Show
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
                   className="duration-300 hover:bg-[#aaa6a6] hover:text-white hover:rounded-lg hover:px-3 text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/view-movies"
+                  to="/CinemasPannel/view-Show"
                 >
                   <i className="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"></i>{' '}
-                  view movies
+                  view Show
                 </Link>
               </li>
             </ul>
 
             {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
+            <hr className="my-1 md:min-w-full" />
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              threater mangement
+            <h6 className="md:min-w-full  bg-[#40e94033] rounded-2xl text-blueGray-900 text-xs uppercase font-bold block p-4 pb-4   no-underline">
+              .... mangement
             </h6>
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
@@ -136,7 +136,7 @@ const sidebar = () => {
                   to="/add-theaters"
                 >
                   <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{' '}
-                  add theaters
+                  add ..
                 </Link>
               </li>
 
@@ -146,25 +146,26 @@ const sidebar = () => {
                   to="/view-theaters"
                 >
                   <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{' '}
-                  view theaters
+                  view ...
                 </Link>
               </li>
             </ul>
-          </div>
-          <button
+            <button
 
-            className="text-blueGray-700 bg-[#fa1b1b] rounded-xl hover:text-black-500 text-xs uppercase py-3 font-bold block duration-300 hover:bg-[#690606] hover:text-white hover:rounded-lg "
-            onClick={
-              () => {
-                localStorage.removeItem('Cinematoken')
-                 navigate('/Cinemas')
+              className="text-blueGray-700 bg-[#fa1b1b] rounded-xl hover:text-black-500 text-xs uppercase py-3 font-bold block duration-300 hover:bg-[#690606] hover:text-white hover:rounded-lg "
+              onClick={
+                () => {
+                  localStorage.removeItem('Cinematoken')
+                  navigate('/Cinemas')
+                }
               }
-            }
-          >
+            >
 
-            <i className="text-blueGray-400 text-sm"></i>{' '}
-            LogOut
-          </button>
+              <i className="text-blueGray-400 text-sm"></i>{' '}
+              LogOut
+            </button>
+          </div>
+
         </div>
       </nav>
     </>
