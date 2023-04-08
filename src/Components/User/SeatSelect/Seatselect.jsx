@@ -37,9 +37,9 @@ function Seatselect() {
 
                         {coulumSeat.map((value, index) => {
                             return (
-                                <div className="column-countainer" key={value}> 
+                                <div className="column-countainer" key={value}>
                                     {seat.map((data, index) => {
-                                        return <> <button className="Seat" value={value + index} id={value + index} key={value + index} onClick={(event) => { Seatselect(event) }}>{index == 0 &&  value }{ value=='A'  &&  data}</button></>
+                                        return <> <button className="Seat" value={value + index} id={value + index} key={value + index} onClick={(event) => { Seatselect(event) }}>{index == 0 && value}{value == 'A' && data}</button></>
                                     })}
                                 </div>
                             )
@@ -51,12 +51,12 @@ function Seatselect() {
                         </div>
                     </div>
                     <div className="detiales-container border-2 text-white text-center">
-                       <div><h1 className='text-white '>Ticket</h1><hr /></div> 
-                        
+                        <div><h1 className='text-white '>Ticket</h1><hr /></div>
+
                         <h1>Selected Seats</h1>
                         <h1>
                             {`${selectedSeat}`}
-                        </h1> 
+                        </h1>
                         <button className='bg-[#ffff] text-black px-2 rounded-lg hover:bg-[#b48d8d]'>Book Your Seat</button>
 
                     </div>

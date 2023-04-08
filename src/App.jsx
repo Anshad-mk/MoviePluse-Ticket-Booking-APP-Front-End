@@ -32,6 +32,7 @@ import DashBoard from "./Pages/TheaterOwner/Dashboard/DashboardData";
 import Addscreen from "./Pages/TheaterOwner/Screens/addscreen";
 import Signup from "./Components/TheaterOwner/Forms/signup";
 import ViewScreens from "./Pages/TheaterOwner/Screens/ViewScreens";
+import AddShow from "./Pages/TheaterOwner/Screens/addmovies"
 
 
 function App() {
@@ -56,8 +57,8 @@ function App() {
       <Routes>
         
         {/* User */}
-        <Route path="/" element={<NavBar />}>
-          <Route index element={<Home/>} />
+        <Route path="/" element={<NavBar/>}>
+          <Route index element={<Home/>}/>
           <Route path={"/movie/:id"} element={<MoviePage />} />
           <Route path={"/movieseat"} element={<MovieSeat />} />
           <Route path={"/SelectTheater"} element={<TheaterSelect />} />
@@ -66,7 +67,7 @@ function App() {
         {/* Admin */}
         {/* {token ? <Navigate to={"/adminPannel"} /> : <Route path={"/admin"} element={<LoginPage />}/> } */}
         <Route path={"/admin"} element={<LoginPage />}/>
-        <Route path={"/adminPannel"} element={<Dashboard />}>
+        <Route path={"/adminPannel"} element={<Dashboard/>}>
           <Route index element={<FirstDashBoard />} />
           <Route path={"add-users"} element={<AddUser />} />
           <Route path={"view-users"} element={<Viewusers />} />
@@ -84,6 +85,7 @@ function App() {
           <Route index element={<DashBoard />} />
           <Route path={"add-screen"} element={<Addscreen />}/>
           <Route path={"view-users"} element={<ViewScreens />}/>
+          <Route path={"add-Show"} element={<AddShow />}/>
 
           
         </Route>

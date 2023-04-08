@@ -10,8 +10,16 @@ const login = () => {
   useEffect(()=>{
     const Cinematoken = localStorage.getItem("Cinematoken");
     if(Cinematoken){
-  
-      navigate('/CinemasPannel')
+      axios.get('http://localhost:4000/theater/checkAutherized',{
+      headers: {
+        Authorization: `Bearer ${Cinematoken}`
+      }
+    }).then((resp)=>{
+      if(resp.data.resp.accepted){
+        navigate('/CinemasPannel')
+      }
+    })
+     
     }
   })
   const generateError = (error) =>
@@ -22,8 +30,7 @@ const login = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
-      password: '',
-      confirmpassword: '',
+      password: ''
     },
     validate: (values) => {
       const error = {}
@@ -31,9 +38,7 @@ const login = () => {
         error.email = 'Email Required'
       } else if (!values.password) {
         error.password = 'Password Required'
-      } else if (values.password != values.confirmpassword) {
-        error.confirmpassword = 'Password Mismatch'
-      }
+      } 
       return error
     },
     onSubmit: async (values) => {
@@ -50,8 +55,7 @@ const login = () => {
         if (response.data.error == 'Admin Not accepted') {
           navigate('/approval')
          console.log(response.data)
-  localStorage.setItem("Cinematoken", response.data.token);
-  
+         localStorage.setItem("Cinematoken", response.data.token);
           console.log(response.data.error,'error')
           console.log('Waiting to Approve')
         } else if (response.data.created == true) {
@@ -117,7 +121,7 @@ const login = () => {
                 <div className="text-red-500">{formik.errors.password}</div>
               ) : null}
             </div>
-            <div className="mt-4">
+            {/* <div className="mt-4">
               <label
                 htmlFor="password_confirmation"
                 className="block text-sm font-medium text-gray-700 undefined"
@@ -138,7 +142,7 @@ const login = () => {
                   {formik.errors.confirmpassword}
                 </div>
               ) : null}
-            </div>
+            </div> */}
             <div className="flex items-center justify-end mt-4">
               <Link
                 className="text-sm text-gray-600 underline hover:text-gray-900"

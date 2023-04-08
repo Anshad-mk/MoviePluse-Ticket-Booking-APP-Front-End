@@ -100,8 +100,8 @@ const [userloggedIn, setUserLoggedIn] = useState(usertoken);
       <hr className='' />
       <div>
       <FilterContext.Provider value={{ filteredMovies: filetedMovies }}>
-
-      { userloggedIn ? <Outlet />: <Navigate to={"/"} /> }
+     <Outlet /> 
+      {/* { userloggedIn ? <Outlet />: <Navigate to={"/"} /> } */}
 
     </FilterContext.Provider>
         

@@ -11,7 +11,7 @@ const addtheater = () => {
   const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
-      theatername: '',
+      name: '',
       place: '',
       email:'',
       password: '',
@@ -19,8 +19,8 @@ const addtheater = () => {
     },
     validate: (values) => {
       const errors = {}
-      if (!values.theatername) {
-        errors.theatername = 'Name Required'
+      if (!values.name) {
+        errors.name = 'Name Required'
       }
       if (!values.place) {
         errors.place = 'Place Required'
@@ -76,15 +76,15 @@ const addtheater = () => {
            theater Name
          </label>
          <input
-           {...formik.getFieldProps('theatername')}
+           {...formik.getFieldProps('name')}
            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
            id="grid-first-name"
            type="text"
-           name="theatername"
+           name="name"
            placeholder="Theater Name"
          />
-         {formik.touched.theatername && formik.errors.theatername ? (
-           <div className="text-red-500">{formik.errors.theatername}</div>
+         {formik.touched.name && formik.errors.name ? (
+           <div className="text-red-500">{formik.errors.name}</div>
          ) : null}
        </div>
        <div class="w-full md:w-1/2 px-3">
