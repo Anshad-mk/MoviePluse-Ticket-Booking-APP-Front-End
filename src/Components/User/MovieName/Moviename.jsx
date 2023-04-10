@@ -1,20 +1,25 @@
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import './moviename.css'
 
-const Moviename = () => {
-    let Movie ={name:"Seetha Ramam",Language:"Malayalam"}
-    let genresname =["Action","Sci-Fi","Drama","Romance"]
+const Moviename = (props) => {
+    const [movie,setMovie] = useState(props.data)
+    useEffect(()=>{
+        setMovie(props.data[0])
+    },[])   
+        console.log(movie,"jhaskdhfajks")  
+  
+   
     return (
         <div className='movieName'>
-            <div className='moviename'><h2>{Movie.name} - {Movie.Language}</h2></div>
+            <div className='moviename'><h2>
+                {/* {movie?.moviename} - {movie?.language} */}
+                </h2></div>
             
             <div className='genres'>
-            {genresname.map((name,index) =>{
-                return <p className='genresname' key={index}>{name}</p>
- 
-            })}
-               
-               </div>
+            <p className='genresname'>
+                {/* {movie?.genre} */}
+                </p>
+                 </div>
 
         </div>
     )

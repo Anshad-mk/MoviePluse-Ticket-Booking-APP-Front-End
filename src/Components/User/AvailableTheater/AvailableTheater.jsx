@@ -1,7 +1,8 @@
 import React from 'react'
 import './availabletheater.css'
 import { Link } from 'react-router-dom'
-const AvailableTheater = () => {
+const AvailableTheater = (props) => {
+    
     return (
         <div className='Main-Container w-f m-0 p-3'>
             <div className='active-fill'>

@@ -33,6 +33,7 @@ import Addscreen from "./Pages/TheaterOwner/Screens/addscreen";
 import Signup from "./Components/TheaterOwner/Forms/signup";
 import ViewScreens from "./Pages/TheaterOwner/Screens/ViewScreens";
 import AddShow from "./Pages/TheaterOwner/Screens/addmovies"
+import ViewShow from "./Pages/TheaterOwner/Screens/ViewShow"
 
 
 function App() {
@@ -61,7 +62,7 @@ function App() {
           <Route index element={<Home/>}/>
           <Route path={"/movie/:id"} element={<MoviePage />} />
           <Route path={"/movieseat"} element={<MovieSeat />} />
-          <Route path={"/SelectTheater"} element={<TheaterSelect />} />
+          <Route path={"/SelectTheater/:MovieId"} element={<TheaterSelect />} />
         </Route>
 
         {/* Admin */}
@@ -86,6 +87,7 @@ function App() {
           <Route path={"add-screen"} element={<Addscreen />}/>
           <Route path={"view-users"} element={<ViewScreens />}/>
           <Route path={"add-Show"} element={<AddShow />}/>
+          <Route path={"view-Show"} element={<ViewShow />}/>
 
           
         </Route>

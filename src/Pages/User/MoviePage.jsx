@@ -116,7 +116,7 @@ export default function BasicGrid() {
           </div>
         </div>
           <div className="flex mx-auto items-center justify-center gap-6">
-          <Link to="/SelectTheater"> <button
+          <Link to={`/SelectTheater/${movie._id}`}> <button
               className="px-6 py-3 w-64 text-white bg-red-600 rounded-md"
               type="button"
             >
@@ -133,8 +133,8 @@ export default function BasicGrid() {
         <div className="bg-white p-8 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold mb-4 text-center">Cast & Crew</h2>
           <div className="grid grid-cols-6 gap-5 items-center justify-center">
-            {castDetails.map((cast) => (
-              <div key="" className="bg-gray-100 p-4 rounded-lg">
+            {castDetails.map((cast,index) => (
+              <div key={index}  className="bg-gray-100 p-4 rounded-lg">
                 <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGk0XDPwd63cdXVsxCfKxTn-gEos2wz-A0ocfU8OhTLltxMbuiTRxz35d0TqxUJ0XAFcPTekABTww&usqp=CAU&ec=48600113"
                   alt=""

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import Select from 'react-select'
+import { useNavigate } from 'react-router-dom'
+
+
 let token = localStorage.getItem('Cinematoken')
 const timeOptions = [
   { value: '9.45', label: '9.45' },
@@ -12,6 +15,7 @@ const timeOptions = [
 ]
 
 const addmovies = () => {
+  const navigate = useNavigate()
   const [ShowTimes, setShowTimes] = useState([
     timeOptions[0],
     timeOptions[1],
@@ -31,7 +35,7 @@ const addmovies = () => {
     })
 
    
-    console.log(token)
+    // console.log(token)
     axios
       .get('http://localhost:4000/theater/screen', 
       {
@@ -40,7 +44,7 @@ const addmovies = () => {
         }
       })
       .then((resp) => {
-        console.log(resp)
+        // console.log(resp)
         if (resp.data) {
           setScreen(resp.data.screens)
         } else {
@@ -88,6 +92,8 @@ const addmovies = () => {
           
         )
         if (response) {
+          navigate('/CinemasPannel/view-Show')
+          
         } else {
         }
       } catch (error) {

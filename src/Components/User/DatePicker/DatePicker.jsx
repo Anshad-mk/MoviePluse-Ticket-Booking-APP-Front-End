@@ -3,7 +3,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 let date=["01-FEB","02-FEB","03-FEB","04-FEB","05-FEB","06-FEB","07-FEB","08-FEB","10-F"]
-export default function ScrollableTabsButtonAuto() {
+export default function ScrollableTabsButtonAuto(props) {
+  // console.log(props)
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
