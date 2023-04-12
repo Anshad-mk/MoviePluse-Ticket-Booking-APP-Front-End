@@ -9,6 +9,13 @@ import { useParams } from 'react-router-dom'
 function BookingPage() {
   const [show, setShow] = useState('')
   const { MovieId } = useParams()
+ const [bookingDate,setBookingDate] = useState(new Date())
+
+ function currentDate (value){
+    setBookingDate(value)
+ }
+  
+ 
   useEffect(() => {
     axios.get(`http://localhost:4000/findShow/${MovieId}`).then((resp) => {
       setShow(resp.data)
@@ -22,8 +29,8 @@ function BookingPage() {
     <div>
 
       <Moviename data={show} />
-      <TabPanel data={show} />
-      <AvailableTheater data={show} />
+      <TabPanel data={show} fn={currentDate}/>
+      <AvailableTheater data={show} date={bookingDate} />
 
     </div>
   )

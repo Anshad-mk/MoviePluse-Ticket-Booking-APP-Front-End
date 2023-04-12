@@ -78,6 +78,7 @@ function App() {
           <Route path={"view-theaters"} element={<Viewtheater />} />
         </Route>
 
+
         {/* Cinemas  */}
         <Route path={"/Cinemas"} element={<Login />} />
         <Route path={"/Cinemas/Signup"} element={<Signup/>}/>

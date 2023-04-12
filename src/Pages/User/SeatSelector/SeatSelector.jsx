@@ -6,7 +6,7 @@ import Seatselect from '../../../Components/User/SeatSelect/Seatselect'
 function SeatSelector() {
   return (
     <div>
-      <Moviename/>
+      {/* <Moviename/> */}
       <Seatselect/>
     </div>
   )

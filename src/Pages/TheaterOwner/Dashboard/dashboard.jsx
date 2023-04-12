@@ -14,9 +14,9 @@ const dashboard = () => {
 
   return (
     <>
-    <div className='h-screen'>
+    <div className=''>
       <Sidebar></Sidebar>
-      <div className="relative md:ml-64  h-screen bg-[#d3d1ce] pt-12 ">
+      <div className=" md:ml-64  bg-[#d3d1ce] pt-12 ">
        {CinemaloggedIn ? <Outlet /> : <Navigate to={'/Cinemas'}/> } 
       </div>
       </div>

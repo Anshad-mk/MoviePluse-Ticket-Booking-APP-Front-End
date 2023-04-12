@@ -2,22 +2,22 @@ import React, { useEffect,useState } from 'react'
 import './moviename.css'
 
 const Moviename = (props) => {
-    const [movie,setMovie] = useState(props.data)
+    console.log(props,"prooooops")
+    const [movie,setMovie] = useState('')
     useEffect(()=>{
-        setMovie(props.data[0])
-    },[])   
-        console.log(movie,"jhaskdhfajks")  
-  
-   
+        setMovie(props?.data[0])
+    },[props])  
     return (
-        <div className='movieName'>
-            <div className='moviename'><h2>
-                {/* {movie?.moviename} - {movie?.language} */}
-                </h2></div>
+        <div className='text-white p-2'>
+           
+            <div className=''>
+                <h1 className='mb-2 bold font-extrabold text-2xl'>
+                {movie?.Movie?.moviename} - {movie?.Movie?.language}
+                </h1></div>
             
-            <div className='genres'>
-            <p className='genresname'>
-                {/* {movie?.genre} */}
+            <div className=''>
+            <p className='border-white-200 rounded-md border inline p-1 text-xs'>
+                {movie?.Movie?.genre}
                 </p>
                  </div>
 

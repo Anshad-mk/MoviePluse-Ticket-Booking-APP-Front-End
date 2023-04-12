@@ -3,6 +3,7 @@ import { baseUrl, APIKey, imageUrl } from "../../assets/Constents";
 import axios from "../../assets/axios";
 import { Link, Navigate } from "react-router-dom";
 import { FilterContext } from "../../Components/User/NavBar";
+// import Modaldelete from "../../Components/comfirmationModal"
 
 const MovieSlide = (props) => {
     const { filteredMovies } = useContext(FilterContext);
@@ -21,6 +22,7 @@ const MovieSlide = (props) => {
     };
     return (
         <>
+        
             {/* <select id="options" value={selectedOption} onChange={handleOptionChange}>
         <option value="">--Select--</option>
         <option value="fantasy">fantasy</option>

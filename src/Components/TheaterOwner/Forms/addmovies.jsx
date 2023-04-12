@@ -10,8 +10,8 @@ const timeOptions = [
   { value: '9.45', label: '9.45' },
   { value: '12.35', label: '12.35' },
   { value: '4.00', label: '4.00' },
-  { value: '7.30',},
-  { value: '10.30'},
+  { value: '7.30',label: '7.30'},
+  { value: '10.30',label: '10.30'},
 ]
 
 const addmovies = () => {
