@@ -126,7 +126,7 @@ const sidebar = () => {
             <hr className="my-1 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full  bg-[#40e94033] rounded-2xl text-blueGray-900 text-xs uppercase font-bold block p-4 pb-4   no-underline">
-              .... mangement
+              Reservation mangement
             </h6>
             {/* Navigation */}
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
@@ -143,10 +143,10 @@ const sidebar = () => {
               <li className="items-center">
                 <Link
                   className="duration-300 hover:bg-[#aaa6a6] hover:text-white hover:rounded-lg hover:px-3 text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/view-theaters"
+                  to="/CinemasPannel/Reservations"
                 >
                   <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{' '}
-                  view ...
+                  View Reservation
                 </Link>
               </li>
             </ul>

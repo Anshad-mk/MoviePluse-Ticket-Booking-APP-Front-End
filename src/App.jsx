@@ -34,6 +34,7 @@ import Signup from "./Components/TheaterOwner/Forms/signup";
 import ViewScreens from "./Pages/TheaterOwner/Screens/ViewScreens";
 import AddShow from "./Pages/TheaterOwner/Screens/addmovies"
 import ViewShow from "./Pages/TheaterOwner/Screens/ViewShow"
+import Reservation from "./Pages/TheaterOwner/Reservation/Reservations"
 
 
 function App() {
@@ -89,6 +90,7 @@ function App() {
           <Route path={"view-users"} element={<ViewScreens />}/>
           <Route path={"add-Show"} element={<AddShow />}/>
           <Route path={"view-Show"} element={<ViewShow />}/>
+          <Route path={"Reservations"} element={<Reservation />}/>
 
           
         </Route>

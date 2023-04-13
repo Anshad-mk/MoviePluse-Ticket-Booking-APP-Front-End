@@ -2,19 +2,77 @@ import React, { useEffect, useState } from 'react'
 import './seatselect.css'
 import FourKIcon from '@mui/icons-material/FourK';
 import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+import swal from 'sweetalert'
+import { useNavigate } from 'react-router-dom';
 
 let coulumSeat = [];
 let seat = [];
-
+const token = localStorage.getItem('token')
 function Seatselect() {
+    const navigate = useNavigate()
 
-    function reservation(seat){
-        axios.get('/')
+    function reservation(seat,data){
+        
+        if(selectedSeat.length<=0){
+            swal({
+                title: "Select Seat first!",
+                text: "Minimum One Seat!",
+                icon: "warning",
+                
+                dangerMode: false,
+              })
+              
+        }else{
+            if(!token){
+                swal({
+                    title: "Log Error",
+                    text: "you should log in first!",
+                    icon: "warning",
+                    dangerMode: false,
+                  })
+               
+            }else{
+                
+            }
+            axios.post('http://localhost:4000/seatbook',
+        {
+             show: {
+                date:new Date(data.date),
+                time:data.time,
+                SeatNumber:seat,
+                price:data.Screen.TicketPrice,
+                TotelPrice:seat.length*data.Screen.TicketPrice
+              },
+              movie:data.Screen.Movie,
+              theater: data.Screen.theater
+            
+        },{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+
+
+        }
+        ).then((resp)=>{
+            swal({
+                title: "success",
+                text:`${seat} Booked successfully`,
+                icon: "success",
+                dangerMode: false,
+              }).then(()=>{
+                navigate('/')
+              }) 
+        })
+        }
+
+        
     }
 
     const { state } = useLocation()
-    console.log(state)
+    
     const [data, setData] = useState(state)
+    
     const [seatcount, setSeatcount] = useState(data.Screen.theater.screen.row)
     const [columCount, setColumncount] = useState(data.Screen.theater.screen.column)
 
@@ -75,7 +133,7 @@ function Seatselect() {
                         </h1>
                         {selectedSeat.length >0 ? (<h2 className='mt-3 mb-3'>{data?.Screen?.TicketPrice} * {selectedSeat.length} = {selectedSeat.length*data?.Screen?.TicketPrice}</h2>):null}
                         <button onClick={()=>{
-                            reservation(selectedSeat)
+                            reservation(selectedSeat,data)
                         }} className='bg-[#ffff] text-black px-2 rounded-lg hover:bg-[#b48d8d]'>Book Your Seat</button>
                     </div>
                 </div>
