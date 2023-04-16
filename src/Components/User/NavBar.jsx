@@ -39,9 +39,15 @@ const [userloggedIn, setUserLoggedIn] = useState(usertoken);
   const handleSearch = (e) => {
     e.preventDefault();
     filterMovies(query);
-    
-   
   };
+
+  const userToken = localStorage.getItem('userToken')
+  const [token, setToken] = useState(userToken)
+  useEffect(() => {
+    
+   setToken(userToken)
+    
+  }, [token])
 
   return (
     <div className="bg-[#111827]">
@@ -77,7 +83,30 @@ const [userloggedIn, setUserLoggedIn] = useState(usertoken);
 
           </ul>
 
-          <Modal name='login' />
+          {token ? (
+              
+              <button
+                className="px-6 py-3 text-white bg-red-600 rounded-md"
+                type="button"
+                onClick={()=>{
+                  localStorage.removeItem('userToken')
+                  setToken(null)
+                }}
+              >
+                Logout
+              </button>
+          ) : (
+            <Link to="/login">
+            <button
+              className="px-6 py-3 text-white bg-red-600 rounded-md"
+              type="button" 
+            >
+              Login
+            </button>
+            </Link>
+          )}
+
+
           {/* <button className='truncate bg-[#F80144] hover:bg-red-700 px-2 rounded'>Sign In</button> */}
         </div>
         <div onClick={handleNav} className='block md:hidden'>

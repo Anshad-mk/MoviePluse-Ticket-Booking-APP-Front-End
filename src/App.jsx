@@ -9,6 +9,9 @@ import {
 } from "react-router-dom";
 import "./App.css";
 import Home from "./Pages/User/Home";
+import Loginuser from "./Components/User/Auth/login";
+import Signupuser from "./Components/User/Auth/signup";
+import Forgotpassword from './Components/User/Auth/forgotpassword'
 import LoginPage from "./Pages/Admin/LoginPage";
 import MoviePage from "./Pages/User/MoviePage";
 import MovieSeat from "./Pages/User/SeatSelector/SeatSelector";
@@ -59,6 +62,10 @@ function App() {
       <Routes>
         
         {/* User */}
+        
+        <Route path="/login" element={<Loginuser/>}/>
+        <Route path="/signup" element={<Signupuser/>}/>
+        <Route path="/forgotpassword" element={<Forgotpassword/>}/>
         <Route path="/" element={<NavBar/>}>
           <Route index element={<Home/>}/>
           <Route path={"/movie/:id"} element={<MoviePage />} />
