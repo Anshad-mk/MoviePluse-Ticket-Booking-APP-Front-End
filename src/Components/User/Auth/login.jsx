@@ -6,6 +6,8 @@ import { ToastContainer, toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import Lottie from 'react-lottie';
 import animationData from '../assets/lottieAnimations/loginMovie.json'
+import { GoogleLogin } from "@react-oauth/google";
+import UserAxios from '../../../assets/axiosForUser.js';
 
 function login() {
   const navigate = useNavigate()
@@ -31,7 +33,7 @@ function login() {
       password: '',
     },
     validate: (values) => {
-      console.log(values)
+      // console.log(values)
       const error = {}
       if (!values.email) {
         error.email = 'Email Required'
@@ -42,24 +44,19 @@ function login() {
     },
     onSubmit: async (values) => {
       try {
-        const response = await axios.post(
-          'http://localhost:4000/login',
+        const response = await UserAxios.post(
+          '/login',
           {
             ...values,
           },
-          { withCredentials: true },
+          { withCredentials: true }
         )
         if (response.data.created == true) {
-          localStorage.setItem('userToken',response.data.token)
+          localStorage.setItem('token',response.data.token)
           navigate('/')
-          console.log(response.data.created, 'created')
-          console.log('Login Success')
-        } else if (response.data.error == 'Invalid email or password') {
-          generateError(response.data.error, 'invalid error')
-          console.log('Invalid email or password')
-        }
+                  } 
       } catch (error) {
-        console.log(error)
+        generateError(error.response.data.error, 'invalid error')
       }
     },
   })
@@ -78,6 +75,7 @@ function login() {
           <form onSubmit={formik.handleSubmit}>
             <div className="flex flex-row items-center justify-center">
               <p className="text-lg font-semibold mr-3">Sign in with</p>
+                <GoogleLogin/>
               <button
                 type="button"
                 className="btn btn-primary btn-floating mx-1"

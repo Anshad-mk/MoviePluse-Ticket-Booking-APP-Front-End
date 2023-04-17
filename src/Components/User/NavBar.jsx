@@ -41,7 +41,7 @@ const [userloggedIn, setUserLoggedIn] = useState(usertoken);
     filterMovies(query);
   };
 
-  const userToken = localStorage.getItem('userToken')
+  const userToken = localStorage.getItem('token')
   const [token, setToken] = useState(userToken)
   useEffect(() => {
     
@@ -89,7 +89,7 @@ const [userloggedIn, setUserLoggedIn] = useState(usertoken);
                 className="px-6 py-3 text-white bg-red-600 rounded-md"
                 type="button"
                 onClick={()=>{
-                  localStorage.removeItem('userToken')
+                  localStorage.removeItem('token')
                   setToken(null)
                 }}
               >

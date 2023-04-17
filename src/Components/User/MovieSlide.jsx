@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { baseUrl, APIKey, imageUrl } from "../../assets/Constents";
-import axios from "../../assets/axios";
+import axios from "../../assets/axiosForUser";
 import { Link, Navigate } from "react-router-dom";
 import { FilterContext } from "../../Components/User/NavBar";
 // import Modaldelete from "../../Components/comfirmationModal"
@@ -9,7 +9,7 @@ const MovieSlide = (props) => {
     const { filteredMovies } = useContext(FilterContext);
 
     const [movies, setMovies] = useState([{}]);
-    console.log(filteredMovies);
+    // console.log(filteredMovies);
     useEffect(() => {
         setMovies(filteredMovies);
     }, [filteredMovies]);
