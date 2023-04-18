@@ -52,6 +52,7 @@ function login() {
           { withCredentials: true }
         )
         if (response.data.created == true) {
+          // console.log(response,"response")
           localStorage.setItem('token',response.data.token)
           navigate('/')
                   } 
@@ -123,7 +124,7 @@ function login() {
               to='/forgotpassword'
               className="text-red-600 text-sm font-bold mt-4 items-center w-full"
             >
-              Forgot Password
+              Before Login Verify Your account
             </Link>
 
             <div className="mb-3 mt-4">

@@ -4,72 +4,96 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert2";
 import swal1 from "sweetalert";
 import UserAxios from "../../../assets/axiosForUser";
+import { getAuth, signInWithPhoneNumber } from "firebase/auth";
 
 function forgotpassword() {
   const navigate = useNavigate();
 
-  function handleClickVerify() {
+  async function handleClickVerify() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
     var phoneNumber = "+91" + document.getElementById("phone").value;
-    var applicationVerifier = new firebase.auth.RecaptchaVerifier(
+    var appVerifier = new firebase.auth.RecaptchaVerifier(
       "recaptcha-container"
     );
-    var provider = new firebase.auth.PhoneAuthProvider();
-    provider
-      .verifyPhoneNumber(phoneNumber, applicationVerifier)
-      .then(async (verificationId) => {
+
+    const auth = getAuth();
+    signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      .then(async (confirmationResult) => {
         document.getElementById("otp").hidden = false;
-        let otp = await document.getElementById("otp").value;
-        firebase.auth.PhoneAuthProvider.credential(verificationId, otp);
+        document.getElementById("sendotp").hidden = true;
+        document.getElementById("verify").hidden = false;
+        document.getElementById("recaptcha-container").hidden = true;
+        // SMS sent. Prompt user to type the code from the message, then sign the
+        // user in with confirmationResult.confirm(code).
+        window.confirmationResult = confirmationResult;
+        // ...
       })
-      .then((phoneCredential) => {
-        firebase
-          .auth()
-          .signInWithCredential(phoneCredential)
-          .catch((error) => {
-            swal.fire({
-              title: "Error",
-              text: "Verification code is incorrect",
-              icon: "error",
-              confirmButtonText: "OK",
-            });
-            throw error;
+      .catch((error) => {
+        // Error; SMS not sent
+        swal.fire({
+            title: "Error",
+            text: " SMS not sent",
+            icon: "error",
+            confirmButtonText: "OK",
           });
-      })
-      .then((resp) => {
-        console.log(firebase);
+        // console.log(error, "Error; SMS not sent");
+        // ...
+      });
+      
+  }
+
+  let checkCode = () => {
+    let code = document.getElementById("otp").value;
+    window.confirmationResult.confirm(code)
+      .then((result) => {
+        
+        // User signed in successfully.
         let verifyPhoneNumber = {
-          verified: true,
-          number: phoneNumber,
-        };
-        UserAxios.post("/verifyNumber", {
-          ...verifyPhoneNumber,
-        })
-          .then((resp) => {
-            console.log(resp, "resppppppppppp");
+            verified: true,
+            number: "+91" +document.getElementById("phone").value,
+          };
+          UserAxios.post("/verifyNumber", {
+            ...verifyPhoneNumber,
+          }).then((resp)=>{
+            
             if (resp.data.verified) {
-              swal1({
-                title: "success",
-                text: `Verified successfully`,
-                icon: "success",
-                dangerMode: false,
-              }).then(() => {
-                navigate("/login");
-              });
-            }
+                swal1({
+                  title: "success",
+                  text: `Verified successfully`,
+                  icon: "success",
+                  dangerMode: false,
+                }).then(() => {
+                  navigate("/login");
+                });
+              }else{
+                swal.fire({
+                    title: "Error",
+                    text: "Check your number",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                  });
+              }
           })
-          .catch((err) => {
-            console.log(err, "errrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-          });
-        // navigate("/password");
+        // const user = result.user;
+        // ...
       })
-      .catch(function (error) {
-        console.error(error, "Error/////////////////////////////");
-        console.log(error);
+      .catch((error) => {
+        // User couldn't sign in (bad verification code?)
+        swal.fire({
+            title: "Error",
+            text: "Verification code is incorrect",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+          throw error;
+        // ...
       });
   }
+  
+ 
+  
 
   return (
     <section className="h-screen justify-center items-center">
@@ -97,15 +121,24 @@ function forgotpassword() {
               type="text"
               id="otp"
               hidden
-              className="w-full p-3 rounded-lg border text-center border-black focus:outline-none focus:border-primary-500"
+              className="w-full p-3 rounded-lg border text-center border-black focus:outline-none focus:border-primary-500 "
               placeholder="OTP"
             />
           </div>
           <button
             className="w-full p-3 rounded-lg text-xl text-white bg-red-700"
             onClick={handleClickVerify}
+            id="sendotp"
           >
             Send OTP
+          </button>
+          <button
+            className="w-full p-3 rounded-lg text-xl text-white bg-red-700"
+            onClick={checkCode}
+            id="verify"
+            hidden
+          >
+            Confirm OTP
           </button>
 
           <div className="text-center" id="recaptcha-container"></div>
