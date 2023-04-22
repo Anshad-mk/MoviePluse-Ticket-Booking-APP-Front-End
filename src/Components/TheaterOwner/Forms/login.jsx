@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
-import axios from 'axios'
+import CinemaAxios from '../../../assets/axiosForCinema'
 import { ToastContainer, toast } from 'react-toastify'
 const login = () => {
   const navigate = useNavigate()
@@ -10,11 +10,7 @@ const login = () => {
   useEffect(()=>{
     const Cinematoken = localStorage.getItem("Cinematoken");
     if(Cinematoken){
-      axios.get('http://localhost:4000/theater/checkAutherized',{
-      headers: {
-        Authorization: `Bearer ${Cinematoken}`
-      }
-    }).then((resp)=>{
+      CinemaAxios.get('/theater/checkAutherized').then((resp)=>{
       if(resp.data.resp.accepted){
         navigate('/CinemasPannel')
       }
@@ -44,8 +40,8 @@ const login = () => {
     onSubmit: async (values) => {
       console.log(values)
       try {
-        const response = await axios.post(
-          'http://localhost:4000/theater/login',
+        const response = await CinemaAxios.post(
+          '/theater/login',
           {
             ...values,
           },

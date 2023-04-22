@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
-import axios from 'axios'
+import CinemaAxios from '../../../assets/axiosForCinema'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -34,8 +34,8 @@ const addscreen = () => {
       const token = localStorage.getItem('Cinematoken')
       try {
         
-        const response = await axios.post(
-          'http://localhost:4000/theater/add-screen',
+        const response = await CinemaAxios.post(
+          '/theater/add-screen',
           { ...values },{headers: {
             Authorization: `Bearer ${token}`
           }},

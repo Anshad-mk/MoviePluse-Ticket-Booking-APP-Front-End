@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFormik } from 'formik'
-import axios from 'axios'
+import AdminAxios from '../../../assets/axiosForAdmin'
 import { ToastContainer, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
 
@@ -47,8 +47,8 @@ const addusers = () => {
     onSubmit: async (values) => {
       console.log(values, '----users data')
       try {
-        const response = await axios.post(
-          'http://localhost:4000/admin/add-users',
+        const response = await AdminAxios.post(
+          '/admin/add-users',
           { ...values },
           { withCredentials: true },
         )

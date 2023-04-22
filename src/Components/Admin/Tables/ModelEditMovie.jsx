@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import axios from "axios";
+import Adminaxios from "../../../assets/axiosForAdmin";
 import { useNavigate } from "react-router-dom";
 import { storage } from '../../../Config/firebase.js'
 
@@ -113,8 +113,8 @@ export default function Modal(props) {
 
 
 
-        const response = await axios.put(
-          'http://localhost:4000/admin/edit-movie',
+        const response = await Adminaxios.put(
+          '/admin/edit-movie',
           { ...values, posterUrl1, posterUrl2, posterUrl3 },
 
           { withCredentials: true },

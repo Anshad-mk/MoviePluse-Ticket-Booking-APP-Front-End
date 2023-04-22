@@ -11,8 +11,8 @@ const cards = [
 const premiers = () => {
   return (
     <>
-      <div className="flex flex-col justify-center items-center w-screen h-[700px] mb-20 bg-[#111827]">
-        <div className="flex justify-between ml-28 items-center w-full md:w-full p-7 mt-[-90px] ">
+      <div className="flex flex-col justify-center items-center  h-[700px] mb-20 bg-[#111827]">
+        <div className="flex justify-between  items-center w-full md:w-full p-7 mt-[-90px] ">
           <h2 className="text-white text-2xl font-bold">
             Premiers
             <br/>

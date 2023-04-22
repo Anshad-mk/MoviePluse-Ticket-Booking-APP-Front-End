@@ -28,6 +28,7 @@
     "formik": "^2.2.9",
     "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^3.1.2",
+    "razorpay": "^0.0.0",
     "react": "^18.2.0",
     "react-confirm-alert": "^3.0.6",
     "react-dom": "^18.2.0",
@@ -35,12 +36,13 @@
     "react-google-button": "^0.7.2",
     "react-icons": "^4.8.0",
     "react-lottie": "^1.2.3",
+    "react-razorpay": "^1.2.0",
     "react-router-dom": "^6.9.0",
     "react-select": "^5.7.2",
     "react-toastify": "^9.1.2",
     "styled-components": "^5.3.8",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^11.7.3"
+    "sweetalert2": "^11.4.8"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
-import axios from 'axios'
+import Adminaxios from '../../../assets/axiosForAdmin'
+import CinemaAxios from '../../../assets/axiosForCinema'
 import Select from 'react-select'
 import { useNavigate } from 'react-router-dom'
 
@@ -30,14 +31,14 @@ const addmovies = () => {
   }
 
   useEffect(() => {
-    axios.get('http://localhost:4000/admin/allMovies').then((response) => {
+    Adminaxios.get('/admin/allMovies').then((response) => {
       setMovies(response.data)
     })
 
    
     // console.log(token)
-    axios
-      .get('http://localhost:4000/theater/screen', 
+    CinemaAxios
+      .get('/theater/screen', 
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -80,8 +81,8 @@ const addmovies = () => {
     onSubmit: async (values) => {
       values.ShowTimes = ShowTimes
       try {
-        const response = await axios.post(
-          'http://localhost:4000/theater/addShow',
+        const response = await CinemaAxios.post(
+          '/theater/addShow',
           { ...values },
           { 
             headers: {

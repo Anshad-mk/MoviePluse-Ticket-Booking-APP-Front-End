@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-const ViewScreens = () => {
-    const [screen, setScreen] = useState([])
-    const token = localStorage.getItem('Cinematoken')
+import CinemaAxios from '../../../assets/axiosForCinema'
+const ViewReservations = () => {
+    const [reservations, setReservations] = useState([])
     useEffect(() => {
         
-            axios.get('http://localhost:4000/theater/view-screen', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-
-
-            }).then((resp) => {
-                setScreen(resp.data.screens)
-                console.log(resp.data.screens)
+        CinemaAxios.get('/theater/ReservationMngmnt').then((resp) => {
+            setReservations(resp.data)
+                console.log(resp.data)
                 
                 
             }).catch((err)=>{
@@ -22,31 +16,10 @@ const ViewScreens = () => {
         
     }, [])
 
-    // const handleDelete = (id) => {
-    //     fetch(`http://localhost:4000/theater/deleteScreen/${id}`, {
-    //         method: 'DELETE',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //     })
-    //         .then((response) => {
-    //             if (response.ok) {
-    //                 console.log('Movie deleted')
-    //                 window.location.href = '/view-screens'
-    //             } else {
-    //                 console.error('Error deleting user')
-    //                 alert('Error deleting user')
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.error(error)
-    //             alert('Error deleting user')
-    //         })
-    // }
 
     return (
-        <div className="h-screen w-full p-0 m-0 flex justify-center items-center">
-            <div className="relative overflow-x-auto shadow-md">
+        <div className="h-auto w-full p-0 m-0 flex justify-center items-center mb-4">
+           <div className="relative overflow-x-auto shadow-md">
                 <table className="w-full text-sm bg-white rounded-2xl overflow-hidden">
                     <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-800 text-center text-gray-700 dark:text-gray-300">
                         <tr>
@@ -54,82 +27,83 @@ const ViewScreens = () => {
                                 Screen Name
                             </th>
                             <th scope="col" className="px-6 py-3 font-medium">
-                                Screen Type
+                                Seat
                             </th>
 
                             <th scope="col" className="px-6 py-3 font-medium">
-                                Row Count
+                                Movie
                             </th>
                             <th scope="col" className="px-6 py-3 font-medium">
-                                Column Count
+                                payment
                             </th>
                             <th scope="col" className="px-6 py-3 font-medium">
-                                Totel Capacity
+                                Date
                             </th>
                             <th scope="col" className="px-6 py-3 font-medium">
-                                Action
+                                Payment status
                             </th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {screen.map((s) => (
+                        {reservations.map((Reservation) => (
                             <tr
-                                key={s._id}
+                                key={Reservation._id}
                             >
                                 <td
                                     scope="row"
                                     className="px-6 py-4 font-medium text-black whitespace-nowrap"
                                 >
-                                    {s.name}
+                                    {Reservation.theater.screen.name}
+                                </td>
+                                <td
+                                    scope="row"
+                                    className=" font-medium text-black truncate "
+                                >
+                                    {Reservation.show.SeatNumber.map(seat=> seat + ", " )}
                                 </td>
                                 <td
                                     scope="row"
                                     className="px-6 py-4 font-medium text-black  whitespace-nowrap"
                                 >
-                                    {s.screen_type}
+                                    {Reservation.movie.moviename}
                                 </td>
                                 <td
                                     scope="row"
                                     className="px-6 py-4 font-medium text-black  whitespace-nowrap"
                                 >
-                                    {s.row}
+                                    {Reservation.CompletPayment ? "Success" :"Not Completed"}
                                 </td>
                                 <td
                                     scope="row"
                                     className="px-6 py-4 font-medium text-black  whitespace-nowrap"
                                 >
-                                    {s.column}
-                                </td>
-                                <td
-                                    scope="row"
-                                    className="px-6 py-4 font-medium text-black  whitespace-nowrap"
-                                >
-                                    {s.seating_capacity}
+                                    {Reservation.BookingDate.split("T")[0]}
                                 </td>
                                 <td className="px-6 py-4 items-center flex justify-center gap-4">
-                                    <button
+                                    {/* <button
                                         type="button"
                                         className="text-white bg-blue-600 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
                                     >
                                         Block
-                                    </button>
+                                    </button> */}
                                     {/* edit */}
-                                    <button
+                                    {/* <button
                                         type="button"
-                                        onClick={() => handleDelete(s._id)}
+                                        onClick={() => handleDelete(Reservation._id)}
                                         className="text-white bg-red-600 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
                                     >
                                         Delete
-                                    </button>
+                                    </button> */}
+                                    {Reservation.user.email.split("@")[0]}
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-            </div>
+            </div> 
         </div>
     )
 
 }
 
-export default ViewScreens
+export default ViewReservations

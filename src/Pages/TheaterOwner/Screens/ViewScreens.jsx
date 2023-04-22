@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import CinemaAxios from '../../../assets/axiosForCinema'
 const ViewScreens = () => {
     const [screen, setScreen] = useState([])
     const token = localStorage.getItem('Cinematoken')
     useEffect(() => {
         
-            axios.get('http://localhost:4000/theater/view-screen', {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-
-
-            }).then((resp) => {
+        CinemaAxios.get('/theater/view-screen').then((resp) => {
                 setScreen(resp.data.screens)
                 console.log(resp.data.screens)
                 
@@ -21,28 +15,6 @@ const ViewScreens = () => {
             })
         
     }, [])
-
-    // const handleDelete = (id) => {
-    //     fetch(`http://localhost:4000/theater/deleteScreen/${id}`, {
-    //         method: 'DELETE',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //     })
-    //         .then((response) => {
-    //             if (response.ok) {
-    //                 console.log('Movie deleted')
-    //                 window.location.href = '/view-screens'
-    //             } else {
-    //                 console.error('Error deleting user')
-    //                 alert('Error deleting user')
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.error(error)
-    //             alert('Error deleting user')
-    //         })
-    // }
 
     return (
         <div className="h-screen w-full p-0 m-0 flex justify-center items-center">

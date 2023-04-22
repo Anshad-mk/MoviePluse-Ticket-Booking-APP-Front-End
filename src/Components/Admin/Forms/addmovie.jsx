@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
-import axios from 'axios'
+import AdminAxios from '../../../assets/axiosForAdmin'
 import { useNavigate } from 'react-router-dom'
 import {storage} from '../../../Config/firebase.js'
 
@@ -89,12 +89,8 @@ const addmovieform = () => {
         } else {
           console.log('Image3 is null or undefined')
         }
-
-
-
-
-        const response = await axios.post(
-          'http://localhost:4000/admin/add-movies',
+const response = await AdminAxios.post(
+          '/add-movies',
           { ...values ,posterUrl1,posterUrl2,posterUrl3  },
 
           { withCredentials: true },
@@ -108,28 +104,25 @@ const addmovieform = () => {
       } catch (error) {
         console.log(error, 'Error from ClientAxios')
       }
-
-      
-
-
-
-
     },
   })
 
   const handleposter1Change = (field, e) => {
     if (e.target.files[0]) {
       setImage1(e.target.files[0])
+      document.getElementById('image1').setAttribute("src",URL.createObjectURL(e.target.files[0]));
     }
   }
   const handleposter2Change = (field, e) => {
     if (e.target.files[0]) {
       setImage2(e.target.files[0])
+      document.getElementById('image2').setAttribute("src",URL.createObjectURL(e.target.files[0]));
     }
   }
   const handleposter3Change = (field, e) => {
     if (e.target.files[0]) {
       setImage3(e.target.files[0])
+      document.getElementById('image3').setAttribute("src",URL.createObjectURL(e.target.files[0]));
     }
   }
   
@@ -211,6 +204,7 @@ const addmovieform = () => {
             >
               Movie poster
             </label>
+            <img src='' id='image1' />
             <input
              
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -230,6 +224,7 @@ const addmovieform = () => {
             >
               side poster
             </label>
+            <img src='' id='image2' />
             <input
               
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -249,6 +244,7 @@ const addmovieform = () => {
             >
               grand poster
             </label>
+            <img src='' id='image3' />
             <input
               
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"

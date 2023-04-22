@@ -2,16 +2,43 @@ import React, { useEffect, useState } from "react";
 import "./seatselect.css";
 import FourKIcon from "@mui/icons-material/FourK";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import userAxios from "../../../assets/axiosForUser";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 
-let coulumSeat = [];
-let seat = [];
-const token = localStorage.getItem("token");
 function Seatselect() {
+  const [coulumSeat, setCoulumSeat] = useState([]);
+  const [seat, setSeat] = useState([]);
+  const { state } = useLocation();
+  const [data, setData] = useState(state);
+  const [seatcount, setSeatcount] = useState(0);
+  const [columCount, setColumncount] = useState(0);
+  const [bookedSeats, setBookedSeats] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    if(!state)navigate('/')
+  },[state])
+  useEffect(() => {
+    setData(state);
+    userAxios
+      .post("/seatusage", {
+        date: data?.date,
+        time: data?.time,
+        screen_id: data?.Screen?.theater?.screen?._id,
+      })
+      .then((resp) => {
+        setBookedSeats(resp?.data?.seats);
+        setSeatcount(resp.data?.screenseats?.theater?.screen?.row);
+        setColumncount(resp.data?.screenseats?.theater?.screen?.column);
+      });
+    bookedSeats.map((value) => {
+      document.getElementById(value).style.backgroundColor = "gray";
+      document.getElementById(value).disabled = true;
+    });
+  }, [coulumSeat, seat, bookedSeats]);
+  
+  const token = localStorage.getItem("token");
   function reservation(seat, data) {
     if (selectedSeat.length <= 0) {
       swal({
@@ -32,19 +59,20 @@ function Seatselect() {
           navigate("/login");
         });
       } else {
-        axios
+        userAxios
           .post(
-            "http://localhost:4000/seatbook",
+            "/seatbook",
             {
+              BookingDate: new Date(),
               show: {
                 date: new Date(data.date),
-                time: data.time,
+                time: data?.time,
                 SeatNumber: seat,
-                price: data.Screen.TicketPrice,
-                TotelPrice: seat.length * data.Screen.TicketPrice,
+                price: data?.Screen?.TicketPrice,
+                TotelPrice: seat.length * data?.Screen?.TicketPrice,
               },
-              movie: data.Screen.Movie,
-              theater: data.Screen.theater,
+              movie: data?.Screen?.Movie,
+              theater: data?.Screen?.theater,
             },
             {
               headers: {
@@ -55,31 +83,27 @@ function Seatselect() {
           .then((resp) => {
             swal({
               title: "success",
-              text: `${seat} Booked successfully`,
+              text: `${seat} Selected`,
               icon: "success",
               dangerMode: false,
             }).then(() => {
-              navigate("/");
+              navigate("/Checkout", {
+                state: {
+                  seat,
+                  Bookingid:resp.data._id,
+                  totelprice: seat.length * data?.Screen?.TicketPrice,
+                  movie: data?.Screen?.Movie,
+                  theater: data?.Screen?.theater,
+                  date: new Date(data?.date),
+                  time: data?.time,
+                  price: data?.Screen?.TicketPrice,
+                },
+              });
             });
           });
       }
     }
   }
-
-  const { state } = useLocation();
-
-  const [data, setData] = useState(state);
-
-  const [seatcount, setSeatcount] = useState(data.Screen.theater.screen.row);
-  const [columCount, setColumncount] = useState(
-    data.Screen.theater.screen.column
-  );
-
-  useEffect(() => {
-    setData(state);
-    setSeatcount(data.Screen.theater.screen.row);
-    setColumncount(data.Screen.theater.screen.column);
-  }, [state, seatcount, columCount]);
 
   for (let i = 0; i < seatcount; i++) {
     seat[i] = i;
@@ -112,7 +136,7 @@ function Seatselect() {
                   {seat.map((data, index) => {
                     return (
                       <button
-                        className="Seat"
+                        className="Seat text-gray-300"
                         value={value + index}
                         id={value + index}
                         key={value + index}
@@ -120,8 +144,8 @@ function Seatselect() {
                           Seatselect(event);
                         }}
                       >
-                        {index == 0 && value}
-                        {value == "A" && data}
+                        {value}
+                        {data}
                       </button>
                     );
                   })}
@@ -139,15 +163,17 @@ function Seatselect() {
               <h1 className="text-white ">
                 <span className="text-[#29fadede] text-3xl ">
                   {data?.Screen?.Movie?.moviename} -{" "}
-                  {data.Screen.Movie.language}
+                  {data?.Screen?.Movie?.language}
                 </span>{" "}
               </h1>
               <hr />
             </div>
-            <h1 className="mt-8">
+            <h1 className="mt-2 text-red-500">
+              {data?.Screen?.theater?.screen?.name}
+            </h1>
+            <h1 className="mt-4">
               {data?.date.toLocaleDateString()} - {data?.time}
             </h1>
-
             <h1 className="mt-3">Selected Seats</h1>
             <h1 className="mt-3">{`${selectedSeat}`}</h1>
             {selectedSeat.length > 0 ? (

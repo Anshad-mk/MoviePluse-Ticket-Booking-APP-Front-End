@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import axios from 'axios'
+import userAxios from '../../../assets/axiosForUser'
 import { useFormik } from 'formik'
 import { ToastContainer, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import Lottie from 'react-lottie'
 import animationData from '../assets/lottieAnimations/signupMovie.json'
+const token = localStorage.getItem('token')
 
 function signup() {
   const navigateto = useNavigate()
@@ -17,6 +18,11 @@ function signup() {
     animationData: animationData,
   }
 
+  useEffect(()=>{
+    if(token){
+      navigateto('/')
+    }
+    },[token])
   // email error
   const generateError = (error) =>
     toast.error(error, {
@@ -61,8 +67,8 @@ function signup() {
     onSubmit: async (values) => {
       console.log(values);
       try {
-        const response = await axios.post(
-          'http://localhost:4000/signup',
+        const response = await userAxios.post(
+          '/signup',
           { ...values },
           { withCredentials: true },
         )

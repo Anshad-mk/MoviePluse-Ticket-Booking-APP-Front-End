@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './availabletheater.css'
 import { useNavigate } from 'react-router-dom';
+import userAxios from '../../../assets/axiosForUser'
 
 const AvailableTheater = (props) => {
     const navigate = useNavigate();
   const [show, setShow] = useState([]);
   const [currentDate, setCurrentDate] = useState(props.date);
-  const Seatselection = (date,time,Screen)=>{
-
-navigate('/movieseat', { state: { date,time,Screen} });
-
-  }
+  const Seatselection = (date,time,Screen)=> navigate('/movieseat', { state: { date,time,Screen} });
 
   useEffect(() => {
     setShow(props.data);
@@ -42,7 +39,6 @@ navigate('/movieseat', { state: { date,time,Screen} });
                       
                         <button onClick={()=>{
                             Seatselection(currentDate,value,item)
-                            window.location.reload();
                         }} key={index} className='btn bg-black text-white rounded-lg px-4 mx-1'>
                           {value} 
                         </button>

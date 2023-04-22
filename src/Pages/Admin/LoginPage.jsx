@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom"
-import axios from "../../assets/axiosForBackend";
+import axios from "../../assets/axiosForCinema";
 import { useNavigate } from 'react-router-dom';
 
 

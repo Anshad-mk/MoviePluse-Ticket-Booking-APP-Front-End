@@ -3,7 +3,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import axios from "../../assets/axiosForBackend";
+import axios from "../../../assets/axiosForCinema";
 import axiosClint from "axios";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange, deepPurple } from "@mui/material/colors";
@@ -339,21 +339,6 @@ const LoginPage = (props) => {
 
                           let Googledecoded = jwt_decode(Gtoken);
                           console.log(Googledecoded);
-
-                          // axiosClint.post("http://localhost:4000/emailauth", {
-
-                          //       "name":"krishnapriya",
-                          //       "mail":"Kri@gmail.com"
-
-                          //   })
-                          //   .then((resp) => {
-                          //   })
-                          //   .catch((er) => {
-                          //   });
-
-                          // setShowModal(false);
-                          // var decodedHeader = jwt_decode(credentialResponse.credential, { header: true });
-                          // console.log(decodedHeader)
                         }}
                         onError={() => {
                           console.log("Login Failed");

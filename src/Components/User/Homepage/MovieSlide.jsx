@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
-import { baseUrl, APIKey, imageUrl } from "../../assets/Constents";
-import axios from "../../assets/axiosForUser";
+import { baseUrl, APIKey, imageUrl } from "../../../assets/Constents";
+import axios from "../../../assets/axiosForUser";
 import { Link, Navigate } from "react-router-dom";
-import { FilterContext } from "../../Components/User/NavBar";
+import { FilterContext } from "../NavBar/NavBar";
 // import Modaldelete from "../../Components/comfirmationModal"
 
 const MovieSlide = (props) => {

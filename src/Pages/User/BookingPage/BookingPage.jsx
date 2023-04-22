@@ -3,6 +3,7 @@ import Moviename from '../../../Components/User/MovieName/Moviename'
 // import NavBar from '../../../Components/User/NavBar'
 import TabPanel from '../../../Components/User/DatePicker/DatePicker'
 import AvailableTheater from '../../../Components/User/AvailableTheater/AvailableTheater'
+import UserAxios from '../../../assets/axiosForUser'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
@@ -17,9 +18,8 @@ function BookingPage() {
   
  
   useEffect(() => {
-    axios.get(`http://localhost:4000/findShow/${MovieId}`).then((resp) => {
+    UserAxios.get(`/findShow/${MovieId}`).then((resp) => {
       setShow(resp.data)
-
     })
 
   }, [])

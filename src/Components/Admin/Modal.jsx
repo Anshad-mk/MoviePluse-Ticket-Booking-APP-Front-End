@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import AdminAxios from "../../assets/axiosForAdmin.js"
 
 export default function Modal(props) {
   const [showModal, setShowModal] = useState(false);
@@ -29,9 +29,9 @@ export default function Modal(props) {
     onSubmit: async (values) => {
       setShowModal(false);
       values._id = user._id;
-      axios
+      AdminAxios
         .put(
-          "http://localhost:4000/admin/edit-user",
+          "/admin/edit-user",
           { ...values },
           { withCredentials: true }
         )

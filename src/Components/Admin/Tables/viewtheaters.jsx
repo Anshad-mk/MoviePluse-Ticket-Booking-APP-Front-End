@@ -1,14 +1,14 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import axios from 'axios'
+import Adminaxios from '../../../assets/axiosForAdmin'
 
 const viewtheaters = () => {
   const [Theaters, setTheater] = useState([])
   const [accept,setAccept]=useState(false)
 
   useEffect(() => {
-    axios.get('http://localhost:4000/admin/TheaterReview')
+    Adminaxios.get('/admin/TheaterReview')
       .then((response) => {
         console.log(response.data,"data")
         setTheater(response.data)
@@ -18,7 +18,7 @@ const viewtheaters = () => {
   }, [])
 
     function authorisetheater (theater,status,index) {
-    axios.patch('http://localhost:4000/admin/accept',{...theater,status}).then((resposne) => {
+      Adminaxios.patch('/admin/accept',{...theater,status}).then((resposne) => {
       const updatedTheaters = Theaters.map((value) => {
         if (value.email === theater.email) {
           return { ...value, accepted: status };

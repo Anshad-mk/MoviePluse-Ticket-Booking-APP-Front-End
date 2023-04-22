@@ -1,5 +1,5 @@
-import axios from 'axios'
 import React from 'react'
+import Adminaxios from '../../../assets/axiosForAdmin'
 import { useState, useEffect } from 'react'
 import EditModal from '../../../Components/Admin/Tables/ModelEditMovie'
 
@@ -8,7 +8,7 @@ const   viewmovies = () => {
   const [movies, setMovies] = useState([])
 
   useEffect(() => {
-    axios.get('http://localhost:4000/admin/allMovies').then((resp) => {
+    Adminaxios.get('/admin/allMovies').then((resp) => {
       console.log(resp.data)
       setMovies(resp.data)
     })

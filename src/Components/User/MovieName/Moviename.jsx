@@ -2,7 +2,6 @@ import React, { useEffect,useState } from 'react'
 import './moviename.css'
 
 const Moviename = (props) => {
-    console.log(props,"prooooops")
     const [movie,setMovie] = useState('')
     useEffect(()=>{
         setMovie(props?.data[0])

@@ -1,5 +1,5 @@
-import axios from 'axios'
 import React, { useState,useEffect } from 'react'
+import CinemaAxios from '../../../assets/axiosForCinema'
 import { Link, useNavigate  } from 'react-router-dom'
 
 
@@ -9,7 +9,7 @@ const approval = () => {
   const checkAccept = ()=>{
     const token = localStorage.getItem('Cinematoken')
     console.log(token)
-    axios.get('http://localhost:4000/theater/checkAutherized',{
+    CinemaAxios.get('/theater/checkAutherized',{
       headers: {
         Authorization: `Bearer ${token}`
       }

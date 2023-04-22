@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import CinemaAxios from '../../../assets/axiosForCinema'
 import swal from 'sweetalert'
 
 const token = localStorage.getItem('Cinematoken')
 const viewmovies = () => {
     const [shows, setShows] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:4000/theater/show-Screened-Movies',
-            {
-                withCredentials: true,
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }).then((showlists) => {
+        CinemaAxios.get('/theater/show-Screened-Movies').then((showlists) => {
                 setShows(showlists.data)
             }).catch((err) => console.log(err))
 

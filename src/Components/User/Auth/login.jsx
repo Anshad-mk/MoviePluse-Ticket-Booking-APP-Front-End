@@ -9,6 +9,7 @@ import animationData from '../assets/lottieAnimations/loginMovie.json'
 import { GoogleLogin } from "@react-oauth/google";
 import UserAxios from '../../../assets/axiosForUser.js';
 
+const token = localStorage.getItem('token')
 function login() {
   const navigate = useNavigate()
 // animation
@@ -17,8 +18,7 @@ function login() {
     autoplay: true,
     animationData: animationData,
   }
-
-
+ 
 
   //error
   const generateError = (error) =>

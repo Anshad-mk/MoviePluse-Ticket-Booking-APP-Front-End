@@ -1,5 +1,5 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import Adminaxios from '../../../assets/axiosForAdmin'
 import { useParams } from 'react-router-dom'
 import Modal from '../../../Components/Admin/Modal'
 
@@ -11,7 +11,7 @@ const viewusers = () => {
 
 
   const blockUser = (userid, status) => {
-    axios.patch('http://localhost:4000/admin/blocked',
+    Adminaxios.patch('/admin/blocked',
       {
         userid: userid,
         status: status
@@ -31,7 +31,7 @@ const viewusers = () => {
 
   useEffect(() => {
 
-    axios.get('http://localhost:4000/admin/allusers').then((resp) => {
+    Adminaxios.get('/admin/allusers').then((resp) => {
       console.log(resp.data)
       setUsers(resp.data)
     })

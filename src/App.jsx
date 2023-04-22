@@ -8,15 +8,15 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.css";
-import Home from "./Pages/User/Home";
+import Home from "./Pages/User/Home/Home";
 import Loginuser from "./Components/User/Auth/login";
 import Signupuser from "./Components/User/Auth/signup";
 import Forgotpassword from './Components/User/Auth/forgotpassword'
 import LoginPage from "./Pages/Admin/LoginPage";
-import MoviePage from "./Pages/User/MoviePage";
+import MoviePage from "./Pages/User/Home/MoviePage";
 import MovieSeat from "./Pages/User/SeatSelector/SeatSelector";
 import TheaterSelect from "./Pages/User/BookingPage/BookingPage";
-import NavBar from "./Components/User/NavBar";
+import NavBar from "./Components/User/NavBar/NavBar";
 import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
 import FirstDashBoard from "./Pages/Admin/Dashboard/FirstDashBoard";
 // movies
@@ -25,6 +25,7 @@ import Viewmovies from "./Pages/Admin/Movies/viewmovies";
 // users
 import AddUser from "./Pages/Admin/Users/addUser";
 import Viewusers from "./Pages/Admin/Users/viewUser";
+import Checkout from "./Components/User/Booking/CheckOut"
 //theater
 import Addtheater from "./Pages/Admin/Theaters/addtheater";
 import Viewtheater from "./Pages/Admin/Theaters/viewtheater";
@@ -38,6 +39,7 @@ import ViewScreens from "./Pages/TheaterOwner/Screens/ViewScreens";
 import AddShow from "./Pages/TheaterOwner/Screens/addmovies"
 import ViewShow from "./Pages/TheaterOwner/Screens/ViewShow"
 import Reservation from "./Pages/TheaterOwner/Reservation/Reservations"
+
 
 
 function App() {
@@ -71,6 +73,7 @@ function App() {
           <Route path={"/movie/:id"} element={<MoviePage />} />
           <Route path={"/movieseat"} element={<MovieSeat />} />
           <Route path={"/SelectTheater/:MovieId"} element={<TheaterSelect />} />
+          <Route path={"/Checkout"} element={<Checkout/>} />
         </Route>
 
         {/* Admin */}

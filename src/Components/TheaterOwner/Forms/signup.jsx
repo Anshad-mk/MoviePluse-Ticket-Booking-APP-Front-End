@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useFormik } from 'formik'
-import axios from 'axios'
+import CinemaAxios from '../../../assets/axiosForCinema'
 import { ToastContainer, toast } from 'react-toastify'
 
 const signup = () => {
@@ -39,8 +39,8 @@ const signup = () => {
     onSubmit: async (values) => {
       
       try {
-         const response = await axios.post(
-          'http://localhost:4000/theater/register',
+         const response = await CinemaAxios.post(
+          '/theater/register',
           { ...values },
           { withCredentials: true },
         )
