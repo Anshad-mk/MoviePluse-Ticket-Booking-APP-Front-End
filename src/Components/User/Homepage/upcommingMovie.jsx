@@ -3,8 +3,8 @@ import React from 'react'
 const upcommingMovie = () => {
   return (
     <div>
-    <section className="py-10 bg-gray-100 items-center justify-center">
-      <h1 className="text-start p-8  font-bold text-2xl ml-10 mb-[-20px]">UPCOMMING MOVIES</h1>
+    <section className="py-10 bg-[#000000] items-center justify-center">
+      <h1 className="text-center text-white font-bold text-2xl  mb-4">UPCOMMING MOVIES</h1>
 
       <div
         className="mx-auto grid max-w-full items-center grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"

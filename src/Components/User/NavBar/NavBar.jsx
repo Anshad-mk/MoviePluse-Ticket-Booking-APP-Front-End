@@ -62,8 +62,9 @@ const NavBar = () => {
   }, [token]);
 
   return (
-    <div className="bg-[#111827]">
-      <div className="bg-black text-white flex justify-between items-center h-20 max-w-[1240] mx-auto px-4 ">
+    
+    <div className="bg-[#000000]">
+      <section className="bg-black text-white flex w-full justify-between items-center h-20 px-4 ">
         <Link to={"/"}>
           {" "}
           <h1 className="w-full text-3xl font-bold text-[#00df9a]">
@@ -73,10 +74,10 @@ const NavBar = () => {
 
         <div className="hidden md:flex">
           <div className="relative">
-            <div className="flex items-center bg-white rounded-md">
+            <div className="flex items-center w-auto mt-2 bg-white rounded-md">
               <input
                 type="search"
-                className="bg-transparent  text-black w-[500px] border-none focus:outline-none py-2 px-2"
+                className="bg-transparent  text-black  border-none focus:outline-none py-2 px-2"
                 placeholder="Search for movies, events, Plays, Sports and Activities."
                 value={key}
                 onChange={(e) => setKey(e.target.value)}
@@ -92,7 +93,7 @@ const NavBar = () => {
                     >
                       <div className="w-12 h-16 mr-4">
                         <img
-                          className="object-cover w-full h-full"
+                          className="object-cover "
                           src={movie.poster1}
                         />
                       </div>
@@ -134,8 +135,6 @@ const NavBar = () => {
               </button>
             </Link>
           )}
-
-          {/* <button className='truncate bg-[#F80144] hover:bg-red-700 px-2 rounded'>Sign In</button> */}
         </div>
         <div onClick={handleNav} className="block md:hidden">
           {!nav ? <FaBars size={20} /> : <FaTimes size={20} />}
@@ -163,15 +162,15 @@ const NavBar = () => {
             </li>
           </ul>
         </div>
-      </div>
+      </section>
       <hr className="" />
-      <div>
+      <div className="bg-black">
         <FilterContext.Provider value={{ filteredMovies: filetedMovies }}>
           <Outlet />
           {/* { userloggedIn ? <Outlet />: <Navigate to={"/"} /> } */}
         </FilterContext.Provider>
       </div>
-    </div>
+   </div>
   );
 };
 

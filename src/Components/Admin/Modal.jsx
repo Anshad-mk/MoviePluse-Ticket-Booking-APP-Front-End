@@ -31,7 +31,7 @@ export default function Modal(props) {
       values._id = user._id;
       AdminAxios
         .put(
-          "/admin/edit-user",
+          "admin/edit-user",
           { ...values },
           { withCredentials: true }
         )

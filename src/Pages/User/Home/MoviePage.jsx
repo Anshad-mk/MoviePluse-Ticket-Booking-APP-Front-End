@@ -32,7 +32,7 @@ export default function BasicGrid() {
   useEffect(() => {
     userAxios.get(`/Movie/${id}`).then((resp) => {
       SetMovie(resp.data);
-      console.log(resp.data);
+      // console.log(resp.data);
     });
   }, []);
 
@@ -71,19 +71,31 @@ export default function BasicGrid() {
       <div className="mx-auto p-8 items-center justify-center">
         <div className="bg-white p-8 rounded-lg mb-8 items-center justify-center">
           <h1 className="text-3xl font-bold mb-6 text-center">
-            {movie.moviename}
+            {movie.moviename} - {new Date(movie.releasedate).getFullYear()}
           </h1>
-          {/* <div className='text-center'></div> */}
-          <img
-            src={movie.poster2}
-            alt=""
+          <div className='text-center flex flex-wrap justify-center'>
+            <img 
+            src={movie.poster1}
+            alt="" width={250}
             className="mx-auto block mb-8 rounded-lg text-center  lg:max-w-screen-lg"
           />
-          <p className="text-gray-600 mb-4 flex  items-center text-center">
-            {" "}
+            <img 
+            src={movie.poster2}
+            alt="" width={250}
+            className="mx-auto block mb-8 rounded-lg text-center  lg:max-w-screen-lg"
+          />
+            <img 
+            src={movie.poster3}
+            alt="" width={250}
+            className="mx-auto block mb-8 rounded-lg text-center  lg:max-w-screen-lg"
+          />
+          </div>
+          
+          
+          <div className="text-center">
+            <p className="text-gray-600 mb-4 flex  items-center text-center">
             {movie.description}
           </p>
-          <div className="text-center">
             <h1 className="font-bold text-2xl uppercase">Details</h1>
             <div className="text-center">
               <h5 className='"text-gray-600 mb-4 mt-6 items-center text-center'>
@@ -98,7 +110,7 @@ export default function BasicGrid() {
             </div>
                     
           </div>
-          <div className="flex mx-auto items-center justify-center gap-6">
+          <div className="flex mx-auto items-center flex-wrap justify-center gap-6">
             <Link to={`/SelectTheater/${movie._id}`}>
               {" "}
               <button
@@ -116,26 +128,27 @@ export default function BasicGrid() {
             </button>
           </div>
         </div>
-        <div className="bg-white p-8 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold mb-4 text-center">Cast & Crew</h2>
-          <div className="grid grid-cols-6 gap-5 items-center justify-center">
-            {castDetails.map((cast, index) => (
-              <div key={index} className="bg-gray-100 p-4 rounded-lg">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGk0XDPwd63cdXVsxCfKxTn-gEos2wz-A0ocfU8OhTLltxMbuiTRxz35d0TqxUJ0XAFcPTekABTww&usqp=CAU&ec=48600113"
-                  alt=""
-                  className="mb-4 rounded-full w-24 h-20 object-cover items-center justify-center mx-auto"
-                />
-                <h3 className="text-md font-bold mb-2 w-24 items-center justify-center mx-auto">
-                  {cast.name}
-                </h3>
-                <p className="text-gray-600 text-center mx-auto">
-                  {cast.position}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <div className="bg-white p-8 rounded-lg shadow-lg flex-wrap">
+  <h2 className="text-2xl font-bold mb-4 text-center">Cast & Crew</h2>
+  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 items-center justify-center">
+    {castDetails.map((cast, index) => (
+      <div key={index} className="bg-gray-100 p-4 rounded-lg">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGk0XDPwd63cdXVsxCfKxTn-gEos2wz-A0ocfU8OhTLltxMbuiTRxz35d0TqxUJ0XAFcPTekABTww&usqp=CAU&ec=48600113"
+          alt=""
+          className="mb-4 rounded-full w-16 md:w-20 lg:w-24 h-16 md:h-20 lg:h-24 object-cover items-center justify-center mx-auto"
+        />
+        <h3 className="text-md font-bold mb-2 w-20 md:w-24 lg:w-24 items-center justify-center mx-auto">
+          {cast.name}
+        </h3>
+        <p className="text-gray-600 text-center mx-auto">
+          {cast.position}
+        </p>
+      </div>
+    ))}
+  </div>
+</div>
+
         <h2 className="mt-12 text-center font-bold text-xl">
           UPCOMMING MOVIES
         </h2>

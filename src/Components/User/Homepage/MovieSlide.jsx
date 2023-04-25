@@ -18,19 +18,13 @@ const MovieSlide = (props) => {
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
-        // console.log(selectedOption)
+
     };
     return (
         <>
         
-            {/* <select id="options" value={selectedOption} onChange={handleOptionChange}>
-        <option value="">--Select--</option>
-        <option value="fantasy">fantasy</option>
-        <option value="Action">Action</option>
-        <option value="Sci-fi">Sci-fi</option>
-      </select> */}
 
-            <div className="h-9 w-full mt-10 flex items-center justify-center">
+            <div className="h-9  mt-10 flex items-center justify-center">
                 <h2 className="text-center text-white font-mono font-bold text-xl">ENJOY THE ENTERTAINMENT</h2>
             </div>
             <div className="flex px-2 overflow-x-scroll overflow-y-hidden scroll-smooth scroll-m-0 scrollbar-hide">
@@ -38,7 +32,7 @@ const MovieSlide = (props) => {
                     return (
                         <div
                             key={index}
-                            className="max-w-[100%] bg-black/10 rounded-xl p-3 text-white m-5 flex flex-col duration-300 cursor-pointer text-xl hover:scale-110"
+                            className="max-w-[100%] bg-black/10 border border-white rounded-xl p-3 text-white m-5 flex flex-col duration-300 cursor-pointer text-xl hover:scale-110"
                             onClick={() => { }}
                         >
                             <Link to={`/movie/${movie._id}`}>
@@ -49,7 +43,7 @@ const MovieSlide = (props) => {
                                 />
                                 {/* {console.log(movie)} */}
                                 <h3 className="my-1">{movie?.moviename}</h3>
-                                <h3 className="my-1">⭐{movie?.genre}</h3>
+                                <h3 className="my-1 text-slate-500 ">⭐{movie?.genre}</h3>
                                 {/* <p className='truncate'>{movie.description}</p> */}
                             </Link>
                         </div>

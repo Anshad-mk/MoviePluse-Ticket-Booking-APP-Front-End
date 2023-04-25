@@ -107,7 +107,7 @@ const addmovies = () => {
     <div className="h-screen flex justify-center items-center">
       <form className="w-full max-w-lg ml-4" onSubmit={formik.handleSubmit}>
         <h1 className="font-bold text-2xl items-center justify-center flex mb-11">
-          ADD MOVIES
+          ADD SHOWS
         </h1>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3">

@@ -18,7 +18,7 @@ const Dashboard = () => {
   return (
     <>
       <Sidebar></Sidebar>
-      <div className="relative md:ml-64  h-screen bg-[#d3d1ce] pt-12 ">
+      <div className="relative md:ml-64  min-h-screen h-auto bg-[#d4cece] pt-12 ">
         {/* <Outlet /> */}
         { state ? <Outlet />: navigate('/admin') }
       </div>

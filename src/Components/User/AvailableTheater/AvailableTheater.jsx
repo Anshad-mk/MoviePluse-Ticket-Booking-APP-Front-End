@@ -16,7 +16,7 @@ const AvailableTheater = (props) => {
 
   return (
     <div className='Main-Container w-f m-0 p-3'>
-      <div className='active-fill'>
+      <div className='flex justify-end items-center'>
         <p className='status-indicaters'>Available</p>
         <p className='status-indicaters'>Fast Filling</p>
         <p className='status-indicaters'>Subtitle</p>

@@ -8,7 +8,7 @@ const approval = () => {
   const navigate = useNavigate()
   const checkAccept = ()=>{
     const token = localStorage.getItem('Cinematoken')
-    console.log(token)
+    // console.log(token)
     CinemaAxios.get('/theater/checkAutherized',{
       headers: {
         Authorization: `Bearer ${token}`

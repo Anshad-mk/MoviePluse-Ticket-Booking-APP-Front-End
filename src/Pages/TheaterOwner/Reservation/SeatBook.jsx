@@ -16,9 +16,9 @@ function Seatselect() {
   const [bookedSeats, setBookedSeats] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(!state)navigate('/')
-  },[state])
+//   useEffect(()=>{
+//     if(!state)navigate('/')
+//   },[state])
   useEffect(() => {
     setData(state);
     userAxios
@@ -122,6 +122,9 @@ function Seatselect() {
 
   return (
     <div className="Main-container">
+        <div className="h-24 bg-[#e4dede]">
+
+        </div>
       <div className="mainMid-container">
         <div className="Mid-container">
           <div className="seat-container">

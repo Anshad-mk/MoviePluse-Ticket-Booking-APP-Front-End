@@ -13,14 +13,14 @@ const dashboard = () => {
   },[CinemaloggedIn])
 
   return (
-    <>
+    
     <div className=''>
       <Sidebar></Sidebar>
-      <div className=" md:ml-64  bg-[#d3d1ce] pt-12 ">
+      <div className=" md:ml-64 bg-[#d3d1ce] ">
        {CinemaloggedIn ? <Outlet /> : <Navigate to={'/Cinemas'}/> } 
       </div>
       </div>
-    </>
+  
   )
 }
 

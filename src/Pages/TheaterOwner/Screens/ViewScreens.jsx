@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import CinemaAxios from '../../../assets/axiosForCinema'
+import ReactPaginate from 'react-paginate'
 const ViewScreens = () => {
     const [screen, setScreen] = useState([])
     const token = localStorage.getItem('Cinematoken')
+    const [currentPage, setCurrentPage] = useState(0)
+  const [length, SetLength] = useState()
+  const itemsPerPage = 5
     useEffect(() => {
         
         CinemaAxios.get('/theater/view-screen').then((resp) => {
                 setScreen(resp.data.screens)
-                console.log(resp.data.screens)
+                SetLength(resp.data.screens.length)
+                // console.log(resp.data.screens)
                 
                 
             }).catch((err)=>{
@@ -15,12 +20,16 @@ const ViewScreens = () => {
             })
         
     }, [])
-
+    function getCurrentPageData() {
+        const startIndex = currentPage * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return screen.slice(startIndex, endIndex);
+      }
     return (
-        <div className="h-screen w-full p-0 m-0 flex justify-center items-center">
+        <div className="h-full min-h-screen pb-4 w-full p-0 m-0 flex justify-center items-center">
             <div className="relative overflow-x-auto shadow-md">
                 <table className="w-full text-sm bg-white rounded-2xl overflow-hidden">
-                    <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-800 text-center text-gray-700 dark:text-gray-300">
+                    <thead className="text-xs uppercase bg-gray-200 dark:bg-gray-800 text-center text-gray-700 dark:text-gray-300">
                         <tr>
                             <th scope="col" className="px-6 py-3 font-medium">
                                 Screen Name
@@ -44,7 +53,7 @@ const ViewScreens = () => {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {screen.map((s) => (
+                        {getCurrentPageData().map((s) => (
                             <tr
                                 key={s._id}
                             >
@@ -98,6 +107,20 @@ const ViewScreens = () => {
                         ))}
                     </tbody>
                 </table>
+                <ReactPaginate
+  pageCount={Math.ceil(screen.length / itemsPerPage)}
+  pageRangeDisplayed={5}
+  marginPagesDisplayed={2}
+  onPageChange={({ selected }) => setCurrentPage(selected)}
+  containerClassName="flex justify-center my-5"
+  activeClassName="font-medium bg-blue-700 text-white py-1 px-3"
+  pageClassName="font-medium text-gray-500 rounded-md py-1 px-3 mx-1 cursor-pointer hover:text-blue-700 hover:bg-gray-200"
+  previousClassName="font-medium text-gray-500 rounded-md py-1 px-3 mx-1 cursor-pointer hover:text-blue-700 hover:bg-gray-200"
+  nextClassName="font-medium text-gray-500 rounded-md py-1 px-3 mx-1 cursor-pointer hover:text-blue-700 hover:bg-gray-200"
+  breakClassName="font-medium text-gray-500 rounded-md py-1 px-3 mx-1 cursor-pointer hover:text-blue-700 hover:bg-gray-200"
+  previousLabel="<<"
+  nextLabel=">>"
+/>
             </div>
         </div>
     )

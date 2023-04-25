@@ -133,7 +133,7 @@ const sidebar = () => {
               <li className="items-center">
                 <Link
                   className="duration-300 hover:bg-[#aaa6a6] hover:text-white hover:rounded-lg hover:px-3 text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/add-theaters"
+                  to="/CinemasPannel/Bookseat"
                 >
                   <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{' '}
                   add ..

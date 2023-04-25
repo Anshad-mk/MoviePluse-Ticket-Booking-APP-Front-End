@@ -2,14 +2,20 @@ import React, { useState } from 'react'
 import { useFormik } from 'formik'
 import CinemaAxios from '../../../assets/axiosForCinema'
 import { useNavigate } from 'react-router-dom'
-
+import { ToastContainer, toast } from 'react-toastify'
 
 
 const addscreen = () => {
+  const generateError = (error) =>
+    toast.error(error, {
+      position: 'bottom-right',
+    })
+
+
  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
-      moviename: '',
+      name: '',
       screentype: '',      
       rowcount:'' ,
       columncount: '',
@@ -17,8 +23,8 @@ const addscreen = () => {
     },
     validate: (values) => {
       const error = {}
-      if (!values.moviename) {
-        error.moviename = 'Name Required'
+      if (!values.name) {
+        error.name = 'Name Required'
       } else if (!values.screentype) {
         error.screentype = 'Type Required'
       }  else if (!values.rowcount) {
@@ -69,16 +75,16 @@ const addscreen = () => {
               Name
             </label>
             <input
-              {...formik.getFieldProps('moviename')}
+              {...formik.getFieldProps('name')}
               className="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
               id="grid-first-name"
               type="text"
-              name="moviename"
-              placeholder="Name"
+              name="name"
+              placeholder="Screen Name"
               
             />
-            {formik.touched.moviename && formik.errors.moviename ? (
-              <div className="text-red-500">{formik.errors.moviename}</div>
+            {formik.touched.name && formik.errors.name ? (
+              <div className="text-red-500">{formik.errors.name}</div>
             ) : null}
           </div>
           <div className="w-full md:w-1/2 px-3">
@@ -173,6 +179,7 @@ const addscreen = () => {
             Submit
           </button>
         </div>
+      <ToastContainer />
       </form>
     </div>
   )

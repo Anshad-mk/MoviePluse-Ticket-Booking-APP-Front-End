@@ -39,6 +39,8 @@ import ViewScreens from "./Pages/TheaterOwner/Screens/ViewScreens";
 import AddShow from "./Pages/TheaterOwner/Screens/addmovies"
 import ViewShow from "./Pages/TheaterOwner/Screens/ViewShow"
 import Reservation from "./Pages/TheaterOwner/Reservation/Reservations"
+import CategoryMovies from "./Pages/User/Home/categoryMovies";
+import Bookseat from "./Pages/TheaterOwner/Reservation/SeatBook"
 
 
 
@@ -64,7 +66,6 @@ function App() {
       <Routes>
         
         {/* User */}
-        
         <Route path="/login" element={<Loginuser/>}/>
         <Route path="/signup" element={<Signupuser/>}/>
         <Route path="/forgotpassword" element={<Forgotpassword/>}/>
@@ -74,10 +75,10 @@ function App() {
           <Route path={"/movieseat"} element={<MovieSeat />} />
           <Route path={"/SelectTheater/:MovieId"} element={<TheaterSelect />} />
           <Route path={"/Checkout"} element={<Checkout/>} />
+          <Route path={"/categorymovie/:category"} element={<CategoryMovies />} />
         </Route>
 
         {/* Admin */}
-        {/* {token ? <Navigate to={"/adminPannel"} /> : <Route path={"/admin"} element={<LoginPage />}/> } */}
         <Route path={"/admin"} element={<LoginPage />}/>
         <Route path={"/adminPannel"} element={<Dashboard/>}>
           <Route index element={<FirstDashBoard />} />
@@ -101,6 +102,7 @@ function App() {
           <Route path={"add-Show"} element={<AddShow />}/>
           <Route path={"view-Show"} element={<ViewShow />}/>
           <Route path={"Reservations"} element={<Reservation />}/>
+          <Route path={"Bookseat"} element={<Bookseat />}/>
 
           
         </Route>

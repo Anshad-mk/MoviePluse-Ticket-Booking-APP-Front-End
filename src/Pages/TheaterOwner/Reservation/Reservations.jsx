@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import CinemaAxios from '../../../assets/axiosForCinema'
+import ReactPaginate from 'react-paginate'
+
 const ViewReservations = () => {
     const [reservations, setReservations] = useState([])
+    const [currentPage, setCurrentPage] = useState(0)
+    const [length, SetLength] = useState()
+    const itemsPerPage = 8
     useEffect(() => {
         
         CinemaAxios.get('/theater/ReservationMngmnt').then((resp) => {
             setReservations(resp.data)
-                console.log(resp.data)
+            SetLength(resp.data.length)
+                // console.log(resp.data)
                 
                 
             }).catch((err)=>{
@@ -15,18 +20,22 @@ const ViewReservations = () => {
             })
         
     }, [])
-
+    function getCurrentPageData() {
+        const startIndex = currentPage * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return reservations.slice(startIndex, endIndex);
+      }
 
     return (
-        <div className="h-auto w-full p-0 m-0 flex justify-center items-center mb-4">
-           <div className="relative overflow-x-auto shadow-md">
-                <table className="w-full text-sm bg-white rounded-2xl overflow-hidden">
-                    <thead className="text-xs uppercase bg-gray-50 dark:bg-gray-800 text-center text-gray-700 dark:text-gray-300">
+        <div className="min-h-screen w-full  flex justify-center items-center ">
+           <div className="relative overflow-x-auto shadow-md m-6 rounded-2xl ">
+                <table className="w-full text-sm bg-white  ">
+                    <thead className="text-xs uppercase bg-gray-200 dark:bg-gray-800 text-center text-gray-700 dark:text-gray-300">
                         <tr>
                             <th scope="col" className="px-6 py-3 font-medium">
                                 Screen Name
                             </th>
-                            <th scope="col" className="px-6 py-3 font-medium">
+                            <th scope="col" className="px-6 py-3 font-medium ">
                                 Seat
                             </th>
 
@@ -44,8 +53,8 @@ const ViewReservations = () => {
                             </th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {reservations.map((Reservation) => (
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700 text-center">
+                        {getCurrentPageData().map((Reservation) => (
                             <tr
                                 key={Reservation._id}
                             >
@@ -57,7 +66,7 @@ const ViewReservations = () => {
                                 </td>
                                 <td
                                     scope="row"
-                                    className=" font-medium text-black truncate "
+                                    className=" font-medium text-black w-2/6 "
                                 >
                                     {Reservation.show.SeatNumber.map(seat=> seat + ", " )}
                                 </td>
@@ -100,6 +109,20 @@ const ViewReservations = () => {
                         ))}
                     </tbody>
                 </table>
+                <ReactPaginate
+  pageCount={Math.ceil(reservations.length / itemsPerPage)}
+  pageRangeDisplayed={5}
+  marginPagesDisplayed={2}
+  onPageChange={({ selected }) => setCurrentPage(selected)}
+  containerClassName="flex justify-center my-5"
+  activeClassName="font-medium bg-blue-700 text-white py-1 px-3"
+  pageClassName="font-medium text-gray-500 rounded-md py-1 px-3 mx-1 cursor-pointer hover:text-blue-700 hover:bg-gray-200"
+  previousClassName="font-medium text-gray-500 rounded-md py-1 px-3 mx-1 cursor-pointer hover:text-blue-700 hover:bg-gray-200"
+  nextClassName="font-medium text-gray-500 rounded-md py-1 px-3 mx-1 cursor-pointer hover:text-blue-700 hover:bg-gray-200"
+  breakClassName="font-medium text-gray-500 rounded-md py-1 px-3 mx-1 cursor-pointer hover:text-blue-700 hover:bg-gray-200"
+  previousLabel="<<"
+  nextLabel=">>"
+/>
             </div> 
         </div>
     )
