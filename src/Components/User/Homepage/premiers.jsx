@@ -23,9 +23,10 @@ const premiers = () => {
         <div className="flex  justify-center items-center w-3/4 md:w-4/4 bg-gray-200 rounded-lg mb-20">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 justify-items-center w-full md:w-full">
             {cards.map((card) => (
-              <Link to={`/categorymovie/${card.category}`}>
+              
+              <Link key={card.id} to={`/categorymovie/${card.category}`}>
                 <button
-                  key={card.id}
+                  
                   className="bg-black text-white w-44 h-44 p-4 flex items-center justify-center font-semibold rounded-2xl uppercase"
                 >
                   {card.category}
