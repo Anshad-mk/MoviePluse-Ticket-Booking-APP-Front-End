@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import userAxios from "../../../assets/axiosForUser";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
+import ChairOutlinedIcon from '@mui/icons-material/ChairOutlined';
 
 function Seatselect() {
   const [coulumSeat, setCoulumSeat] = useState([]);
@@ -121,16 +122,16 @@ function Seatselect() {
   };
 
   return (
-    <div className="Main-container">
-      <div className="mainMid-container">
-        <div className="Mid-container">
+    <div className="Main-container ">
+      <div className="mainMid-container ">
+        <div className="Mid-container ">
           <div className="seat-container">
             {coulumSeat.map((value, index) => {
               return (
                 <div className="column-countainer" key={value}>
                   {seat.map((data, index) => {
                     return (
-                      <button
+                       <button
                         className="Seat text-gray-300"
                         value={value + index}
                         id={value + index}
@@ -140,7 +141,7 @@ function Seatselect() {
                         }}
                       >
                         {value}
-                        {data}
+                        {data} 
                       </button>
                     );
                   })}
