@@ -4,8 +4,8 @@ import { useFormik } from 'formik'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
-import Lottie from 'react-lottie';
-import animationData from '../assets/lottieAnimations/loginMovie.json'
+// import Lottie from 'react-lottie';
+// import animationData from '../assets/lottieAnimations/loginMovie.json'
 import { GoogleLogin } from "@react-oauth/google";
 import UserAxios from '../../../assets/axiosForUser.js';
 
@@ -13,11 +13,11 @@ const token = localStorage.getItem('token')
 function login() {
   const navigate = useNavigate()
 // animation
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-  }
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData: animationData,
+  // }
  
 
   //error
@@ -67,7 +67,7 @@ function login() {
       <div className="container mx-auto flex justify-center items-center h-full">
         <div className="md:w-3/4 lg:w-1/2 xl:w-2/5">
           <div>
-            <Lottie options={defaultOptions} />
+            {/* <Lottie options={defaultOptions} /> */}
           </div>
         </div>
 
