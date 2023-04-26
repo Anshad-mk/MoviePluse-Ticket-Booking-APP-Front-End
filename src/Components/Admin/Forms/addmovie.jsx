@@ -3,8 +3,8 @@ import { useFormik } from "formik";
 import AdminAxios from "../../../assets/axiosForAdmin";
 import { useNavigate } from "react-router-dom";
 import { storage } from "../../../Config/firebase.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpload } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faUpload } from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -221,7 +221,7 @@ const addmovieform = () => {
               htmlFor="grid-Poster"
             >
               Movie poster <br />
-              <FontAwesomeIcon icon={faUpload} size="5x" className="pl-4" />
+              {/* <FontAwesomeIcon icon={faUpload} size="5x" className="pl-4" /> */}
             </label>
             <img src="" id="image1" />
             <input
@@ -240,7 +240,7 @@ const addmovieform = () => {
               htmlFor="grid-poster2"
             >
               side poster <br />
-              <FontAwesomeIcon icon={faUpload} size="5x" className="pl-4" />
+              {/* <FontAwesomeIcon icon={faUpload} size="5x" className="pl-4" /> */}
             </label>
             <img src="" id="image2" />
             <input
@@ -259,7 +259,7 @@ const addmovieform = () => {
               htmlFor="grid-zip"
             >
               grand poster <br />
-              <FontAwesomeIcon icon={faUpload} size="5x" className="pl-4" />
+              {/* <FontAwesomeIcon icon={faUpload} size="5x" className="pl-4" /> */}
             </label>
             <img src="" id="image3" />
             <input
