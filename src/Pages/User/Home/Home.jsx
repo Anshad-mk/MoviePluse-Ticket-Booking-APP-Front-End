@@ -1,7 +1,5 @@
 import React,{useState} from 'react'
-import NavBar from '../../../Components/User/NavBar/NavBar'
 import MovieSlide from '../../../Components/User/Homepage/MovieSlide'
-import { baseUrl, APIKey, imageUrl } from '../../../assets/Constents'
 import UpcommingMovie from '../../../Components/User/Homepage/upcommingMovie'
 import Premiers from '../../../Components/User/Homepage/premiers'
 import Footer from '../../../Components/User/Footer/footer'
