@@ -1,6 +1,7 @@
 import axios from "axios";
 const token = localStorage.getItem('Cinematoken')
-const baseURL= "https://anshad.tech"
+// const baseURL= "https://anshad.tech"
+const baseURL= "http://localhost:8080" 
 const instance = axios.create({
   baseURL,
   withCredentials:true,
